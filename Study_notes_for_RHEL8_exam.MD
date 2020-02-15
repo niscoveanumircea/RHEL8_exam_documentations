@@ -82,7 +82,7 @@ _adapted by Mircea Niscoveanu
 	
 * Show file system exports on the client:
 
-  `$ showmount -e SERVER_IP` (on client)
+`$ showmount -e SERVER_IP` (on client)
 	
 * Mount nfs:
 
