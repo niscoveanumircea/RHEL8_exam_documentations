@@ -133,6 +133,28 @@ _adapted by Mircea Niscoveanu
 
 `$ chage USER_NAME` - to set password expiracy policies
 
+### SElinux 
+
+`$ getenforce` - view selinux mode [0|1] or [Permissive|Enforcing]
+
+`$ setenforce [0|1]` - set selinux mode
+
+* List boolenas: `$ getsebool -a`
+* Turn boolean ON of OFF: `$ setsebool BOOLEAN_NAME on | off -P` - add "-P" for permanent
+* List SElinux contexts: `$ semanage fcontext -l`
+* View contexts on files of folders:
+
+	`$ ls -Z`
+	`$ ps -axZ`
+	
+* Change SElinux context:
+
+	`$ semanage fcontext -a -t context_type '/var/www/html(./*)?'` - changes SElinux context recurrent
+	
+* Restore default contexts: `$ restorecon -R /var/www/html`
+
+* View SElinux policy violations:
+	`$ seaalert -a /var/log/audit/audit.log`
 
 ## 1. Ansible Getting Started
 
