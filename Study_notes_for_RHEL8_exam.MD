@@ -106,6 +106,13 @@ _adapted by Mircea Niscoveanu
 * View information on vdo volumes:
 	`$ vdostats --human-readable`
 
+### Configure time service client : chrony
+
+* Install required package: `yum install chrony`
+* Start "chronyd": `systemctl start chronyd && systemctl enable chronyd`
+* Configure "chronyd": `vi /etc/chronyd`
+* Restart "chornyd" to apply configuration: `systemctl restart chronyd`
+
 ## 1. Ansible Getting Started
 
 When installed, the ansible package provides a base configuration file located at `/etc/ansible/ansible.cfg`.
