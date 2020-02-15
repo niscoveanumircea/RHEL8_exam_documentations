@@ -55,7 +55,7 @@ _adapted by Mircea Niscoveanu
   $ systemctl shutdown
   $ systemctl reboot
   ```
-# Interrupt boot process and Change the root password:
+### Interrupt boot process and Change the root password:
 
 •	Edit the kernel boot parameters by pressing “e”
 
@@ -75,11 +75,11 @@ _adapted by Mircea Niscoveanu
 
 •	Exit the SHELL:   ```$ exit```
 
-# Disk management:
+### Disk management:
 
   ```$ blkid``` -> shows UID of filesystems
 
-# Mount a Network File System
+### Mount a Network File System
 ```
 	$ yum install nfs-utils
 	$ systemctl start rpcbind
@@ -96,7 +96,7 @@ _adapted by Mircea Niscoveanu
 		/etc/fstab: `SERVER_IP:/nfs-share /mounted-nfs      nfs4    defaults 0 0` (on client)
 		/etc/exports: `/nfs-share CLIENT_IP(rw,sync, permissions etc)`
   
-# Special permissions:
+### Special permissions:
 
   •	`setuid`  (only to files ) – when running the executable, it runs with the owner permission and not with the actual user that runs the executable
   •	`setgid` (files and folders) – if set , the files/folders created under the parent will have the group of the of the parent folder
