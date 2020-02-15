@@ -84,7 +84,7 @@ _adapted by Mircea Niscoveanu
   		`$ showmount -e SERVER_IP` (on client)
 * Mount nfs:
 
-		`$ mount -t nfs SERVER_IP:/nfs-share /mounted-nfs-share` (on client)
+	`$ mount -t nfs SERVER_IP:/nfs-share /mounted-nfs-share` (on client)
 		
 	/etc/fstab: `SERVER_IP:/nfs-share /mounted-nfs      nfs4    defaults 0 0` (on client)
 	
