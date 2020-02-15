@@ -1,5 +1,6 @@
 # Study notes for EX407 Ansible Automation exam (RHEL7)
 _by Tomas Nevar (tomas@lisenet.com)_
+_adapted by Mircea Niscoveanu
 
 ## Exam objectives:
 
@@ -46,6 +47,56 @@ _by Tomas Nevar (tomas@lisenet.com)_
 * Manage parallelism
 * Use Ansible Vault in playbooks to protect sensitive data
 * Use provided documentation to look up specific information about Ansible modules and commands
+
+
+## 0. RHEL 8 Useful commands:
+
+  ```
+  $ systemctl shutdown
+  $ systemctl reboot
+  ```
+# Interrupt boot process and Change the root password:
+
+•	Edit the kernel boot parameters by pressing “e”
+•	Go to the end of “linux” line by pressing CTR+e removing RO CRASH and add rd.break enforcing=o
+•	Start the system by pressing CTR+x
+•	Remount the root of the system: 
+  ```$ mount -o remount,rw /sysroot```
+•	Swith to /sysroot:
+  ```$ chroot /sysroot```
+•	Reset the “root” password:
+  ```$ passwd```
+•	Enable SElinux relabeling:
+  ```$ touch /.autorelabel```
+•	Exit the SHELL:
+  ```$ exit```
+
+# Disk management:
+
+  ```$ blkid``` -> shows UID of filesystems
+
+# Mount a Network File System
+
+	$ yum install nfs-utils
+	$ systemctl start rpcbind
+	$ systemctl start nfs-server (on server)
+  
+•	Show file system exports on the client:
+
+  ```$ showmount -e SERVER_IP```
+
+•	Mount nfs
+```$ mount -t nfs SERVER_IP:/nfs-share /mounted-nfs-share (on client)```
+
+	/etc/fstab: SERVER_IP:/nfs-share /mounted-nfs      nfs4    defaults 0 0 (on client)
+	/etc/exports: /nfs-share CLIENT_IP(rw,sync, permissions etc)
+  
+# Special permissions:
+
+  •	`setuid`  (only to files ) – when running the executable, it runs with the owner permission and not with the actual user that runs the executable
+  •	`setgid` (files and folders) – if set , the files/folders created under the parent will have the group of the of the parent folder
+  •	`sticky bit` (folders) – if set , the files under folder can only be deleted by the owner
+
 
 ## 1. Ansible Getting Started
 
