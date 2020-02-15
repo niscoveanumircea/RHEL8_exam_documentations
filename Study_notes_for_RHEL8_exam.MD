@@ -61,9 +61,12 @@ _adapted by Mircea Niscoveanu
 •	Go to the end of “linux” line by pressing CTR+e removing RO CRASH and add rd.break enforcing=o
 •	Start the system by pressing CTR+x
 •	Remount the root of the system: 
+
   ```$ mount -o remount,rw /sysroot```
+  
 •	Swith to /sysroot:
   ```$ chroot /sysroot```
+  
 •	Reset the “root” password:
   ```$ passwd```
 •	Enable SElinux relabeling:
