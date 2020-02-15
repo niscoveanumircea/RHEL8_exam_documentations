@@ -113,6 +113,17 @@ _adapted by Mircea Niscoveanu
 * Configure "chronyd": `vi /etc/chronyd`
 * Restart "chornyd" to apply configuration: `systemctl restart chronyd`
 
+### Users and Groups
+
+`$ id USER_NAME`
+`$ groups GROUP_NAME` -> show belonging groups
+
+`$ usermod -aG NEW_GROUP_TO_ADD USER_NAME` - add the user to a new group
+`$ usermod -g NEW_MAIN_GROUP USER_NAME` - sets the new main group
+`$ usermod -L USER_NAME` - lock user
+`$ usermod -U USER_NAME` - unlock user
+
+
 ## 1. Ansible Getting Started
 
 When installed, the ansible package provides a base configuration file located at `/etc/ansible/ansible.cfg`.
