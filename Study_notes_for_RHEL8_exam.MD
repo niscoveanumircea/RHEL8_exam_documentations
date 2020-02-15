@@ -1,5 +1,5 @@
-# Study notes for EX407 Ansible Automation exam (RHEL7)
-_by Tomas Nevar (tomas@lisenet.com)_
+# Study notes for EX407 Ansible Automation exam (RHEL8)
+_by Tomas Nevar (tomas@lisenet.com)
 _adapted by Mircea Niscoveanu
 
 ## Exam objectives:
@@ -129,9 +129,9 @@ _adapted by Mircea Niscoveanu
 
 * Change password to user:
 
-`passwd USER_NAME` - to change password for user
+`$ passwd USER_NAME` - to change password for user
 
-`chage USER_NAME` - to set password expiracy policies
+`$ chage USER_NAME` - to set password expiracy policies
 
 
 ## 1. Ansible Getting Started
