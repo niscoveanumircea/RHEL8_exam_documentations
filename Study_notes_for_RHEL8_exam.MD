@@ -144,10 +144,12 @@ _adapted by Mircea Niscoveanu
 * List SElinux contexts: `$ semanage fcontext -l`
 * View contexts on files of folders:
 
-	`$ ls -Z`
-	`$ ps -axZ`
+	```
+	$ ls -Z
+	$ ps -axZ
+	```
 	
-* Change SElinux context:
+* Change SElinux context (semanage or chcon or setfiles):
 
 	`$ semanage fcontext -a -t context_type '/var/www/html(./*)?'` - changes SElinux context recurrent
 	
