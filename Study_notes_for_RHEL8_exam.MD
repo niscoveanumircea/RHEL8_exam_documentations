@@ -177,6 +177,14 @@ _adapted by Mircea Niscoveanu
 
 ## 1. Ansible Getting Started
 
+### Installing on RedHat
+
+	```
+	$ subscription-manager repos list | grep ansible
+	$ subscription-manager repos --enable ansible-2.9-for-rhel-8-x86_64-rpms
+	$ yum install ansible
+	```
+
 When installed, the ansible package provides a base configuration file located at `/etc/ansible/ansible.cfg`.
 
 Priority in which the configuration files are processed:
