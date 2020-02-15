@@ -117,7 +117,7 @@ _adapted by Mircea Niscoveanu
 
 `$ id USER_NAME`
 
-`$ groups GROUP_NAME` -> show belonging groups
+`$ groups USER_NAME` -> show belonging groups
 
 `$ usermod -aG NEW_GROUP_TO_ADD USER_NAME` - add the user to a new group
 
@@ -127,6 +127,11 @@ _adapted by Mircea Niscoveanu
 
 `$ usermod -U USER_NAME` - unlock user
 
+* Change password to user:
+
+`passwd USER_NAME` - to change password for user
+
+`chage USER_NAME` - to set password expiracy policies
 
 
 ## 1. Ansible Getting Started
