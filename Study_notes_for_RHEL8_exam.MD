@@ -75,7 +75,7 @@ _adapted by Mircea Niscoveanu
 	
 ### Interrupt boot process and Change the root password:
 
-* Edit the kernel boot parameters by pressing "e"
+* Edit the kernel boot parameters by pressing "`e`"
 * Go to the end of "linux" line by pressing `CTR+e` removing `ro crash` and add `rd.break enforcing=o`
 * Start the system by pressing `CTR+x`
 * Remount the root of the system: 
