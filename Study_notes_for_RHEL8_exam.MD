@@ -115,13 +115,18 @@ _adapted by Mircea Niscoveanu
 
 ### Users and Groups
 
-```$ id USER_NAME```
-```$ groups GROUP_NAME``` -> show belonging groups
+`$ id USER_NAME`
+
+`$ groups GROUP_NAME` -> show belonging groups
 
 `$ usermod -aG NEW_GROUP_TO_ADD USER_NAME` - add the user to a new group
+
 `$ usermod -g NEW_MAIN_GROUP USER_NAME` - sets the new main group
+
 `$ usermod -L USER_NAME` - lock user
+
 `$ usermod -U USER_NAME` - unlock user
+
 
 
 ## 1. Ansible Getting Started
