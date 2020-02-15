@@ -75,15 +75,16 @@ _adapted by Mircea Niscoveanu
   ```$ blkid``` -> shows UID of filesystems
 
 ### Mount a Network File System
-`
+	
 	$ yum install nfs-utils
 	$ systemctl start rpcbind
 	$ systemctl start nfs-server (on server)
-`
-	* Show file system exports on the client:
+	
+* Show file system exports on the client:
   		`$ showmount -e SERVER_IP`
-	* Mount nfs
+* Mount nfs:
 		`$ mount -t nfs SERVER_IP:/nfs-share /mounted-nfs-share (on client)`
+		
 		/etc/fstab: `SERVER_IP:/nfs-share /mounted-nfs      nfs4    defaults 0 0` (on client)
 		/etc/exports: `/nfs-share CLIENT_IP(rw,sync, permissions etc)`
   
