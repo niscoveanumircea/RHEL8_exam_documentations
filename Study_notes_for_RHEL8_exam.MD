@@ -59,8 +59,8 @@ _adapted by Mircea Niscoveanu
 ### Interrupt boot process and Change the root password:
 
 * Edit the kernel boot parameters by pressing "e"
-* Go to the end of "linux" line by pressing CTR+e removing RO CRASH and add rd.break enforcing=o
-* Start the system by pressing CTR+x
+* Go to the end of "linux" line by pressing `CTR+e` removing `ro crash` and add `rd.break enforcing=o`
+* Start the system by pressing `CTR+x`
 * Remount the root of the system: 
 
   `$ mount -o remount,rw /sysroot`
@@ -75,19 +75,15 @@ _adapted by Mircea Niscoveanu
   ```$ blkid``` -> shows UID of filesystems
 
 ### Mount a Network File System
-```
+`
 	$ yum install nfs-utils
 	$ systemctl start rpcbind
 	$ systemctl start nfs-server (on server)
-```
-	•	Show file system exports on the client:
-
+`
+	* Show file system exports on the client:
   		`$ showmount -e SERVER_IP`
-
-	•	Mount nfs
-	
+	* Mount nfs
 		`$ mount -t nfs SERVER_IP:/nfs-share /mounted-nfs-share (on client)`
-
 		/etc/fstab: `SERVER_IP:/nfs-share /mounted-nfs      nfs4    defaults 0 0` (on client)
 		/etc/exports: `/nfs-share CLIENT_IP(rw,sync, permissions etc)`
   
