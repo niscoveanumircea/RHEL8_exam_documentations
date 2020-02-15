@@ -98,6 +98,13 @@ _adapted by Mircea Niscoveanu
 * `setgid` (files and folders) – if set , the files/folders created under the parent will have the group of the of the parent folder
 * `sticky bit` (folders) – if set , the files under folder can only be deleted by the owner
 
+### Working with Virtual Data Optimizer (VDO)
+
+* Install required package: `yum install vdo`
+* Create a VDO volume:
+	`$ vdo create --name=vdo_volume_1 --device=/dev/devName --vdoLogicalSize=vol_size`
+* View information on vdo volumes:
+	`$ vdostats --human-readable`
 
 ## 1. Ansible Getting Started
 
