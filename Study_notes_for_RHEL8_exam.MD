@@ -83,9 +83,11 @@ _adapted by Mircea Niscoveanu
 * Show file system exports on the client:
   		`$ showmount -e SERVER_IP` (on client)
 * Mount nfs:
+
 		`$ mount -t nfs SERVER_IP:/nfs-share /mounted-nfs-share` (on client)
 		
 	/etc/fstab: `SERVER_IP:/nfs-share /mounted-nfs      nfs4    defaults 0 0` (on client)
+	
 	/etc/exports: `/nfs-share CLIENT_IP(rw,sync, permissions etc)` (on server)
   
 ### Special permissions:
