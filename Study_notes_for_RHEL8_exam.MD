@@ -58,12 +58,15 @@ _adapted by Mircea Niscoveanu
  
 ### YUM / DNF
 
-* List modules: `$ yum module list` - shows all versions for each module
-* Enable another version: `$ yum module enable postgresql:12`
-* Reset module version to default [d]: `yum module reset postgresql` 
+* List modules: 
+	`$ yum module list` - shows all versions for each module
+* Enable another version: 
+	`$ yum module enable postgresql:12`
+* Reset module version to default [d]: 
+	`yum module reset postgresql` 
 * Other yum module arguments : 
-
-`$ yum module {update,provides,install,reset,disable,enable,info,remove,list} MODULE_NAME`
+	`$ yum module {update,provides,install,reset,disable,enable,info,remove,list} MODULE_NAME`
+	
 ### Interrupt boot process and Change the root password:
 
 * Edit the kernel boot parameters by pressing "e"
