@@ -1,4 +1,4 @@
-# Study notes for EX407 Ansible Automation exam (RHEL8)
+# Study notes for EX294 / EX407 Ansible Automation exam (RHEL8)
 _by Tomas Nevar (tomas@lisenet.com)
 _adapted by Mircea Niscoveanu
 
@@ -1252,7 +1252,74 @@ It can be useful to define default arguments for a particular module using the `
 ```
 It is a time saver when you need to use the same module repeatedly.
 
-## 23. Ansible - Spanning multiple lines
+## 23. Ansible - WAIT_FOR and WAIT_FOR_CONNECTION
+
+#### wait_for – Waits for a condition before continuing
+
+Examples:
+
+```
+- name: sleep for 300 seconds and continue with play
+  wait_for:
+    timeout: 300
+  delegate_to: localhost
+
+- name: Wait for port 8000 to become open on the host, don't start checking for 10 seconds
+  wait_for:
+    port: 8000
+    delay: 10
+
+- name: Waits for port 8000 of any IP to close active connections, don't start checking for 10 seconds
+  wait_for:
+    host: 0.0.0.0
+    port: 8000
+    delay: 10
+    state: drained
+
+- name: Wait for port 8000 of any IP to close active connections, ignoring connections for specified hosts
+  wait_for:
+    host: 0.0.0.0
+    port: 8000
+    state: drained
+    exclude_hosts: 10.2.1.2,10.2.1.3
+
+- name: Wait until the file /tmp/foo is present before continuing
+  wait_for:
+    path: /tmp/foo
+
+- name: Wait until the string "completed" is in the file /tmp/foo before continuing
+  wait_for:
+    path: /tmp/foo
+    search_regex: completed
+
+- name: Wait until regex pattern matches in the file /tmp/foo and print the matched group
+  wait_for:
+    path: /tmp/foo
+    search_regex: completed (?P<task>\w+)
+  register: waitfor
+- debug:
+    msg: Completed {{ waitfor['groupdict']['task'] }}
+
+- name: Wait until the lock file is removed
+  wait_for:
+    path: /var/lock/file.lock
+    state: absent
+```
+
+#### wait_for_connection – Waits until remote system is reachable/usable
+
+```
+- name: Wait 600 seconds for target connection to become reachable/usable
+  wait_for_connection:
+
+- name: Wait 300 seconds, but only start checking after 60 seconds
+  wait_for_connection:
+    delay: 60
+    timeout: 300
+```
+
+
+## 24. Ansible - Spanning multiple lines
 
 Values can span multiple lines using | or >. Spanning multiple lines using a "Literal Block Scalar" ` | ` will include the newlines and any trailing spaces. Using a "Folded Block Scalar" ` > ` will fold newlines to spaces; it’s used to make what would otherwise be a very long line easier to read and edit. In either case the indentation will be ignored. Examples are:
 
@@ -1268,7 +1335,7 @@ fold_newlines: >
             despite appearances
 ```
 
-## 22. Ansible Best Practices
+## 25. Ansible Best Practices
 
 Tips for making the most of Ansible and Ansible playbooks.
 
