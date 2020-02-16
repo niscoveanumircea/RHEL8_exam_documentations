@@ -156,6 +156,8 @@ _adapted by Mircea Niscoveanu
 
 `$ setenforce [0|1]` - set selinux mode
 
+`$ setatus` - view SElinux status
+
 * List boolenas: `$ getsebool -a`
 * Turn boolean ON of OFF: `$ setsebool BOOLEAN_NAME on | off -P` - add "-P" for permanent
 * List SElinux contexts: `$ semanage fcontext -l`
