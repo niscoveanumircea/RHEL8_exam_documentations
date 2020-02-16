@@ -307,7 +307,7 @@ $ ansible-playbook -C <playbook>.yaml
 Playbook step-by-step execution:
 ```
 $ ansible-playbook --step <playbook>.yaml
-```	
+```
 
 The beginning of each play begins with a single dash followed by a space.
 
@@ -343,6 +343,7 @@ When you include content, then Ansible processes included content during the run
 When you import content, Ansible processes imported content when the playbook is initially read, before the run starts.
 
 Note that `include` was replaced in Ansible 2.4 with new directives such as `include_tasks`, `import_tasks` and `import_playbook`. These can be used to enhance the ability to reuse tasks and playbooks:
+
 ```
 import_playbook:
 import_tasks:
@@ -744,17 +745,17 @@ Block run handlers in error handling
     - name: run me even after an error
       debug:
         msg: 'This handler runs even on error'
-````
+```
 
 Ansible also provides a couple of variables for tasks in the rescue portion of a block:
 
-`ansible_failed_task`
+`ansible_failed_task` ->
 
-    The task that returned ‘failed’ and triggered the rescue. For example, to get the name use `ansible_failed_task.name`.
+The task that returned 'failed' and triggered the rescue. For example, to get the name use `ansible_failed_task.name`.
 
-`ansible_failed_result` 
+`ansible_failed_result` -> 
 
-    The captured return result of the failed task that triggered the rescue. This would equate to having used this var in the register keyword. 
+The captured return result of the failed task that triggered the rescue. This would equate to having used this var in the register keyword. 
 
 
 ## 9. Commonly Used Files Modules with Examples
