@@ -91,9 +91,13 @@ Manage security
 ## 1. Deploy, configure, and maintain systems
 
 * Check current configuration:
-  `$ systemctl get-default`
+   `$ systemctl get-default`
 * Change the current target:
-  `$ systemctl set-default NEW_TARGET`
+   `$ systemctl isolate name.target`
+* Set the default configuration
+  `$ systemctl set-default name.target`
+* Change target to rescue mode:
+   `$ systemctl rescue`
 * View targets: 
 ```
 $ ll /etc/systemd/system/default.target
