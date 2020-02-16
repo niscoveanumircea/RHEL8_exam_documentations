@@ -959,7 +959,7 @@ The order of execution for your playbook is as follows:
 1. Any `pre_tasks` defined in the play.
 2. Any handlers triggered so far will be run.
 3. Each role listed in roles will execute in turn (with dependencies).
-4. Any tasks defined in the play.
+4. Any `tasks` defined in the play.
 5. Any handlers triggered so far will be run.
 6. Any `post_tasks` defined in the play.
 7. Any handlers triggered so far will be run.
