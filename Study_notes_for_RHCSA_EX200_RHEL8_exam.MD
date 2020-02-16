@@ -5,20 +5,20 @@ _by Mircea Niscoveanu
 
 Study points for the exam
 
-    RHCSA exam candidates should be able to accomplish the tasks below without assistance. These have been grouped into several categories.
+   RHCSA exam candidates should be able to accomplish the tasks below without assistance. These have been grouped into several categories.
 Understand and use essential tools
 
-        Access a shell prompt and issue commands with correct syntax
-        Use input-output redirection (>, >>, |, 2>, etc.)
-        Use grep and regular expressions to analyze text
-        Access remote systems using SSH
-        Log in and switch users in multiuser targets
-        Archive, compress, unpack, and uncompress files using tar, star, gzip, and bzip2
-        Create and edit text files
-        Create, delete, copy, and move files and directories
-        Create hard and soft links
-        List, set, and change standard ugo/rwx permissions
-        Locate, read, and use system documentation including man, info, and files in /usr/share/doc
+Access a shell prompt and issue commands with correct syntax
+Use input-output redirection (>, >>, |, 2>, etc.)
+Use grep and regular expressions to analyze text
+Access remote systems using SSH
+Log in and switch users in multiuser targets
+Archive, compress, unpack, and uncompress files using tar, star, gzip, and bzip2
+Create and edit text files
+Create, delete, copy, and move files and directories
+Create hard and soft links
+List, set, and change standard ugo/rwx permissions
+Locate, read, and use system documentation including man, info, and files in /usr/share/doc
 
 Operate running systems
 
@@ -96,11 +96,12 @@ Manage security
   `$ systemctl set-default NEW_TARGET`
 * View targets: 
 ```
-ll /etc/systemd/system/default.target
-lrwxrwxrwx. 1 root root 36 Feb 16 22:29 /etc/systemd/system/default.target -> /lib/systemd/system/graphical.target
+$ ll /etc/systemd/system/default.target
+      /etc/systemd/system/default.target -> /lib/systemd/system/graphical.target
 ```
 ```
-ll /lib/systemd/system/runlevel*.target
+$ ll /lib/systemd/system/runlevel*.target
+
     lrwxrwxrwx. 1 root root 15 Feb  4 17:01 /lib/systemd/system/runlevel0.target -> poweroff.target
     lrwxrwxrwx. 1 root root 13 Feb  4 17:02 /lib/systemd/system/runlevel1.target -> rescue.target
     lrwxrwxrwx. 1 root root 17 Feb  4 17:01 /lib/systemd/system/runlevel2.target -> multi-user.target
