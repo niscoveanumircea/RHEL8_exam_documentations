@@ -339,10 +339,9 @@ Use the serial keyword to run the hosts through the play in batches. Host variab
 ## 2. Including and Importing Files
 
 When you include content, then Ansible processes included content during the run of the playbook, as content is required.
-
 When you import content, Ansible processes imported content when the playbook is initially read, before the run starts.
 
-Note that `include` was replaced in Ansible 2.4 with new directives such as `include_tasks`, `import_tasks` and `import_playbook`. These can be used to enhance the ability to reuse tasks and playbooks:
+Note that `include` was replaced in Ansible 2.4 with new directives such as `include_tasks`, `include_vars`, `include_role`.
 
 ```
 import_playbook:
@@ -376,8 +375,17 @@ Ansible has two modes of operation for reusable content: dynamic and static.
 
 In Ansible 2.0, the concept of dynamic includes was introduced. Due to some limitations with making all includes dynamic in this way, the ability to force includes to be static was introduced in Ansible 2.1. Because the include task became overloaded to encompass both static and dynamic syntaxes, and because the default behavior of an include could change based on other options set on the Task, Ansible 2.4 introduces the concept of `include` vs. `import`.
 
-If you use any `include*` Task (`include_tasks`, `include_role`, etc.), it will be **dynamic**. 
-If you use any `import*` Task (`import_playbook`, `import_tasks`, etc.), it will be **static**.
+If you use any `include*` Task (`include_tasks`, `include_role`, `include_vars`), it will be **dynamic**. 
+If you use any `import*` Task (`import_playbook`, `import_tasks`, `import_role`), it will be **static**.
+
+	import_playbook – Import a playbook
+	import_role – Import a role into a play
+	import_tasks – Import a task list
+	include – Include a play or task list
+	include_role – Load and execute a role
+	include_tasks – Dynamically include a task list
+	include_vars – Load variables from files, dynamically within a task
+
 
 The bare `include` task (which was used for both Task files and Playbook-level includes) is still available, however it is now considered **deprecated**.
 
@@ -393,7 +401,7 @@ When it comes to Ansible task options like tags and conditional statements (when
     For dynamic includes, the task options will only apply to the dynamic task as it is evaluated, and will not be copied to child tasks.
     For static imports, the parent task options will be copied to all child tasks contained within the import.
 
-**Note**
+**Note:** 
 Roles are a somewhat special case. Prior to Ansible 2.3, roles were always statically included via the special roles: option for a given play and were always executed first before any other play tasks (unless pre_tasks were used). Roles can still be used this way, however, Ansible 2.3 introduced the `include_role` option to allow roles to be executed inline with other tasks.
 
 Using `include*` vs. `import*` has some advantages as well as some tradeoffs which users should consider when choosing to use each:
@@ -402,8 +410,8 @@ The primary advantage of using `include*` statements is looping. When a loop is 
 
 Using `include*` does have some limitations when compared to `import*` statements:
 /
-    Tags which only exist inside a dynamic include will not show up in --list-tags output.
-    Tasks which only exist inside a dynamic include will not show up in --list-tasks output.
+    Tags which only exist inside a dynamic include will not show up in `--list-tags` output.
+    Tasks which only exist inside a dynamic include will not show up in `--list-tasks` output.
     You cannot use notify to trigger a handler name which comes from inside a dynamic include (see note below).
     You cannot use --start-at-task to begin execution at a task inside a dynamic include.
 
@@ -413,7 +421,7 @@ Using `import*` can also have some limitations when compared to dynamic includes
     When using variables for the target file or role name, variables from inventory sources (host/group vars, etc.) cannot be used.
     Handlers using `import*` will not be triggered when notified by their name, as importing overwrites the handler’s named task with the imported task list.
 
-**Note**
+**Note:** 
 Regarding the use of notify for dynamic tasks: it is still possible to trigger the dynamic include itself, which would result in all tasks within the include being run.
 
 ## 3. Ansible and Vim
