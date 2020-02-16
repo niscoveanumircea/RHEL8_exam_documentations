@@ -393,14 +393,14 @@ The bare `include` task (which was used for both Task files and Playbook-level i
 
 The two modes of operation are pretty simple:
 
-    Dynamic includes are processed during runtime at the point in which that task is encountered.
-    Ansible pre-processes all static imports during Playbook parsing time.
+   Dynamic includes are processed during runtime at the point in which that task is encountered.
+   Ansible pre-processes all static imports during Playbook parsing time.
 
 When it comes to Ansible task options like tags and conditional statements (when:):
 
 
-    *For dynamic includes, the task options will only apply to the dynamic task as it is evaluated, and will not be copied to child tasks.
-    For static imports, the parent task options will be copied to all child tasks contained within the import.*
+   For dynamic includes, the task options will only apply to the dynamic task as it is evaluated, and will not be copied to child tasks.
+   For static imports, the parent task options will be copied to all child tasks contained within the import.
 
 
 **Note:** 
@@ -413,18 +413,18 @@ The primary advantage of using `include*` statements is looping. When a loop is 
 Using `include*` does have some limitations when compared to `import*` statements:
 
 	
-    Tags which only exist inside a dynamic include will not show up in `--list-tags` output.
-    Tasks which only exist inside a dynamic include will not show up in `--list-tasks` output.
-    You cannot use notify to trigger a handler name which comes from inside a dynamic include (see note below).
-    You cannot use --start-at-task to begin execution at a task inside a dynamic include.
+   Tags which only exist inside a dynamic include will not show up in `--list-tags` output.
+   Tasks which only exist inside a dynamic include will not show up in `--list-tasks` output.
+   You cannot use notify to trigger a handler name which comes from inside a dynamic include (see note below).
+   You cannot use --start-at-task to begin execution at a task inside a dynamic include.
 	
 
 Using `import*` can also have some limitations when compared to dynamic includes:
 
 
-    As noted above, loops cannot be used with imports at all.
-    When using variables for the target file or role name, variables from inventory sources (host/group vars, etc.) cannot be used.
-    Handlers using `import*` will not be triggered when notified by their name, as importing overwrites the handler’s named task with the imported task list.
+   As noted above, loops cannot be used with imports at all.
+   When using variables for the target file or role name, variables from inventory sources (host/group vars, etc.) cannot be used.
+   Handlers using `import*` will not be triggered when notified by their name, as importing overwrites the handler’s named task with the imported task list.
 
 
 **Note:** 
