@@ -177,6 +177,37 @@ _adapted by Mircea Niscoveanu
 * View SElinux policy violations:
 	`$ seaalert -a /var/log/audit/audit.log`
 
+#### Ansible SElinux useful modules
+
+**selinux**
+```
+- name: Enable SELinux
+  selinux:
+    policy: targeted
+    state: enforcing
+```
+
+**seboolean**
+```
+- name: Set httpd_can_network_connect flag on and keep it persistent across reboots
+  seboolean:
+    name: httpd_can_network_connect
+    state: yes
+    persistent: yes
+```
+
+**sefcontext**
+```
+- name: Allow apache to modify files in /srv/git_repos
+  sefcontext:
+    target: '/srv/git_repos(/.*)?'
+    setype: httpd_git_rw_content_t
+    state: present
+
+- name: Apply new SELinux file context to filesystem
+  command: restorecon -irv /srv/git_repos
+```
+
 ## 1. Ansible Getting Started
 
 ### Installing on RedHat
