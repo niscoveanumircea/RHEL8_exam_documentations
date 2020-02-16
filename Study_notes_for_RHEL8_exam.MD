@@ -539,7 +539,7 @@ You can change this behavior with the `--force-handlers` command-line option, or
 
 ## 8. Error Handling
 
-### Controlling What Defines Failure
+#### Controlling What Defines Failure
 
 Ansible lets you define what "failure" means in each task using the failed_when conditional. As with all conditionals in Ansible, lists of multiple failed_when conditions are joined with an implicit and, meaning the task only fails when all conditions are met. If you want to trigger a failure when any of the conditions is met, you must define the conditions in a string with an explicit or operator.
 
@@ -606,7 +606,7 @@ You can also combine multiple conditions to override "changed" result:
     - '"ERROR" in result.stderr'
     - result.rc == 2
 ```
-### Aborting the play
+#### Aborting the play
 
 Sometimes it’s desirable to abort the entire play on failure, not just skip remaining tasks for a host.
 
@@ -625,7 +625,7 @@ The any_errors_fatal option will end the play and prevent any subsequent plays f
 ```
 for finer-grained control `max_fail_percentage` can be used to abort the run after a given percentage of hosts has failed
 
-### Blocks
+#### Blocks
 
 Blocks allow for logical grouping of tasks and in play error handling. Most of what you can apply to a single task (with the exception of loops) can be applied at the block level, which also makes it much easier to set data or directives common to the tasks. This does not mean the directive affects the block itself, but is inherited by the tasks enclosed by a block. i.e. a when will be applied to the tasks, not the block itself.
 Block example with named tasks inside the block
@@ -752,7 +752,7 @@ Ansible also provides a couple of variables for tasks in the rescue portion of a
     The captured return result of the failed task that triggered the rescue. This would equate to having used this var in the register keyword. 
 
 
-## 8. Commonly Used Files Modules with Examples
+## 9. Commonly Used Files Modules with Examples
 
 The file module acts like `chcon` when setting file contexts:
 ```
@@ -843,7 +843,7 @@ The file module acts like `chcon` when setting file contexts:
       regexp: "^PermitRootLogin"
       line: "PermitRootLogin no"
 ```
-## 9. Password Hashing
+## 10. Password Hashing
 
 How to generate SHA512 crypted passwords for the user module? The answer is taken from Ansible FAQ.
 ```
@@ -853,7 +853,7 @@ How to generate SHA512 crypted passwords for the user module? The answer is take
       password: "{{ user_pw | password_hash('sha512') }}"
 ```
 
-## 10. Jinja2 Templates
+## 11. Jinja2 Templates
 
 Similar to Puppet. Puppet templates are based upon Ruby's ERB, Ansible templates are based upon Jinja2.
 
@@ -875,7 +875,7 @@ $ cat templates/index.j2
 The system kernel is: {{ ansible_kernel }}
 ```
 
-## 11. Ansible Roles
+## 12. Ansible Roles
 
 Similar to Puppet modules, reusable code in a modular fashion. Create a role skeleton:
 ```
@@ -984,7 +984,7 @@ $ ansible-galaxy list
 - linux-system-roles.selinux, (unknown version)
 ```
 
-## 12. Ansible Variables
+## 13. Ansible Variables
 
 Variables for hosts and host groups can be defined by creating two directories, `group_vars` and `host_vars`, in the same working directory as the inventory file or directory.
 ```
@@ -1026,7 +1026,7 @@ The `inventory_hostname` variable is the name of the hostname as configured in A
 when: inventory_hostname in groups["webservers"]
 ```
 
-## 13. meta - Execute Ansible Actions
+## 14. meta - Execute Ansible Actions
 
 Meta tasks are a special kind of task which can influence Ansible internal execution or state. Choices:
 ```
@@ -1057,7 +1057,7 @@ Example meta task for how to run handlers after an error occurred:
 ```
 Note that meta is not really a module as such it cannot be overwritten.
 
-## 14. Ansible Check Mode (Dry Run)
+## 15. Ansible Check Mode (Dry Run)
 
 When `ansible-playbook` is executed with `--check` it will not make any changes on remote systems. To modify the check mode behavior of individual tasks, you can use the check_mode option:
 ```
@@ -1070,7 +1070,7 @@ When `ansible-playbook` is executed with `--check` it will not make any changes 
 ```
 The above will force a task to run in check mode, even when the playbook is called without `--check`.
 
-## 15. Ansible Playbook Debugger
+## 16. Ansible Playbook Debugger
 
 Ansible includes a debugger as part of the strategy plugins. This debugger enables you to debug as task.
 
@@ -1091,7 +1091,7 @@ The debugger keyword can be used on any block where you provide a name attribute
         format: tgz
 ```
 
-## 16. Ansible Ignoring Failed Commands
+## 17. Ansible Ignoring Failed Commands
 
 Playbooks will stop executing any more steps on a host that has a task fail. To ignore this behaviour, set `ignore_errors` to `true`:
 ```
@@ -1101,7 +1101,7 @@ Playbooks will stop executing any more steps on a host that has a task fail. To 
 ```
 This is useful when you expect a task to fail. For example, you are checking if Apache website is reachable. It may be unreachable, but you don't want the play to fail because of that.
 
-## 17. Ansible Run Once
+## 18. Ansible Run Once
 
 There may be a need to only run a task one time for a batch of hosts. This can be achieved by configuring `run_once` on a task:
 ```
@@ -1109,7 +1109,7 @@ There may be a need to only run a task one time for a batch of hosts. This can b
   run_once: true
 ```
 
-## 18. Ansible Aborting the Play
+## 19. Ansible Aborting the Play
 
 There will be cases when you will need to abort the entire play on failure, not just skip remaining tasks for a host, to avoid breaking the system. The `any_errors_fatal` play option will mark all hosts as failed if any fails, causing an immediate abort:
 ```
@@ -1119,7 +1119,7 @@ There will be cases when you will need to abort the entire play on failure, not 
     - database
 ```
 
-## 19. Ansible Keywords
+## 20. Ansible Keywords
 
 These are some of the keywords available on common playbook objects.
 
@@ -1163,7 +1163,7 @@ loop
 register
 ```
 
-## 20. Ansible Setting Defaults for Modules
+## 21. Ansible Setting Defaults for Modules
 
 It can be useful to define default arguments for a particular module using the `module_defaults` attribute:
 ```
@@ -1185,7 +1185,23 @@ It can be useful to define default arguments for a particular module using the `
 ```
 It is a time saver when you need to use the same module repeatedly.
 
-## 21. Ansible Best Practices
+## 23. Ansible - Spanning multiple lines
+
+Values can span multiple lines using | or >. Spanning multiple lines using a "Literal Block Scalar" ` | ` will include the newlines and any trailing spaces. Using a "Folded Block Scalar" ` > ` will fold newlines to spaces; it’s used to make what would otherwise be a very long line easier to read and edit. In either case the indentation will be ignored. Examples are:
+
+```
+include_newlines: |
+            exactly as you see
+            will appear these three
+            lines of poetry
+
+fold_newlines: >
+            this is really a
+            single line of text
+            despite appearances
+```
+
+## 22. Ansible Best Practices
 
 Tips for making the most of Ansible and Ansible playbooks.
 
