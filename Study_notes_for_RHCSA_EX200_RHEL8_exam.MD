@@ -3,7 +3,7 @@ _by Mircea Niscoveanu
 
 ## Exam objectives:
 
-Study points for the exam
+### Study points for the exam
 
    RHCSA exam candidates should be able to accomplish the tasks below without assistance. These have been grouped into several categories.
 Understand and use essential tools
@@ -20,7 +20,7 @@ Create hard and soft links
 List, set, and change standard ugo/rwx permissions
 Locate, read, and use system documentation including man, info, and files in /usr/share/doc
 
-Operate running systems
+### Operate running systems
 
         Boot, reboot, and shut down a system normally
         Boot systems into different targets manually
@@ -33,7 +33,7 @@ Operate running systems
         Start, stop, and check the status of network services
         Securely transfer files between systems
 
-Configure local storage
+### Configure local storage
 
         List, create, delete partitions on MBR and GPT disks
         Create and remove physical volumes
@@ -42,7 +42,7 @@ Configure local storage
         Configure systems to mount file systems at boot by universally unique ID (UUID) or label
         Add new partitions and logical volumes, and swap to a system non-destructively
 
-Create and configure file systems
+### Create and configure file systems
 
         Create, mount, unmount, and use vfat, ext4, and xfs file systems
         Mount and unmount network file systems using NFS
@@ -52,7 +52,7 @@ Create and configure file systems
         Manage layered storage
         Diagnose and correct file permission problems
 
-Deploy, configure, and maintain systems
+### Deploy, configure, and maintain systems
 
         Schedule tasks using at and cron
         Start and stop services and configure services to start automatically at boot
@@ -62,21 +62,21 @@ Deploy, configure, and maintain systems
         Work with package module streams
         Modify the system bootloader
 
-Manage basic networking
+### Manage basic networking
 
         Configure IPv4 and IPv6 addresses
         Configure hostname resolution
         Configure network services to start automatically at boot
         Restrict network access using firewall-cmd/firewall
 
-Manage users and groups
+### Manage users and groups
 
         Create, delete, and modify local user accounts
         Change passwords and adjust password aging for local user accounts
         Create, delete, and modify local groups and group memberships
         Configure superuser access
 
-Manage security
+### Manage security
 
         Configure firewall settings using firewall-cmd/firewalld
         Create and use file access control lists
