@@ -541,7 +541,7 @@ You can change this behavior with the `--force-handlers` command-line option, or
 
 #### Controlling What Defines Failure
 
-Ansible lets you define what "failure" means in each task using the failed_when conditional. As with all conditionals in Ansible, lists of multiple failed_when conditions are joined with an implicit and, meaning the task only fails when all conditions are met. If you want to trigger a failure when any of the conditions is met, you must define the conditions in a string with an explicit or operator.
+Ansible lets you define what "failure" means in each task using the `failed_when` conditional. As with all conditionals in Ansible, lists of multiple `failed_when` conditions are joined with an implicit and, meaning the task only fails when all conditions are met. If you want to trigger a failure when any of the conditions is met, you must define the conditions in a string with an explicit or operator.
 
 You may check for failure by searching for a word or phrase in the output of a command:
 ```
@@ -567,11 +567,11 @@ You can also combine multiple conditions for failure. This task will fail if bot
     - result.rc == 0
     - '"No such" not in result.stdout'
 ```
-If you want the task to fail when only one condition is satisfied, change the failed_when definition to:
+If you want the task to fail when only one condition is satisfied, change the `failed_when` definition to:
 ```
 failed_when: result.rc == 0 or "No such" not in result.stdout
 ```
-If you have too many conditions to fit neatly into one line, you can split it into a multi-line yaml value with >:
+If you have too many conditions to fit neatly into one line, you can split it into a multi-line yaml value with ` > `:
 ```
 - name: example of many failed_when conditions with OR
   shell: "./myBinary"
@@ -581,11 +581,12 @@ If you have too many conditions to fit neatly into one line, you can split it in
     (ret.stderr != '') or
     (ret.rc == 10)
 ```
-### Overriding The Changed Result
+#### Overriding The Changed Result
 
-When a shell/command or other module runs it will typically report “changed” status based on whether it thinks it affected machine state.
+When a shell/command or other module runs it will typically report "changed" status based on whether it thinks it affected machine state.
 
 Sometimes you will know, based on the return code or output that it did not make any changes, and wish to override the "changed" result such that it does not appear in report output or does not cause handlers to fire:
+
 ```
 tasks:
 
@@ -616,7 +617,8 @@ The any_errors_fatal option will end the play and prevent any subsequent plays f
   any_errors_fatal: true
   roles:
     - myrole
-
+```
+```
 - hosts: somehosts
   tasks:
     - block:
@@ -661,7 +663,7 @@ In the example above, each of the 3 tasks will be executed after appending the w
 Names for tasks within blocks have been available since Ansible 2.3. We recommend using names in all tasks, within blocks or elsewhere, for better visibility into the tasks being executed when you run the playbook.
 Blocks error handling
 
-Blocks also introduce the ability to handle errors in a way similar to exceptions in most programming languages. Blocks only deal with ‘failed’ status of a task. A bad task definition or an unreachable host are not ‘rescuable’ errors.
+Blocks also introduce the ability to handle errors in a way similar to exceptions in most programming languages. Blocks only deal with ‘failed’ status of a task. A bad task definition or an unreachable host are not 'rescuable' errors.
 Block error handling example
 
 ```
