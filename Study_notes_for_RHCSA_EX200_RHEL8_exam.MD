@@ -137,3 +137,23 @@ $cat local.repo
    $ yum groupinstall "Graphical Administration Tools|Server with GUI"
    ```
 
+## 2. Manage basic networking
+
+CLI: `nmcli`
+GUI: `nmtui`
+
+Show devices/interface:
+```
+# nmcli device status
+DEVICE  TYPE      STATE      CONNECTION
+ens33   ethernet  connected  ens33
+lo      loopback  unmanaged  --
+```
+Show connections/configurations:
+```
+# ls -1 /etc/sysconfig/network-scripts/
+ifcfg-ens33
+# nmcli connection show
+NAME   UUID                                  TYPE      DEVICE
+ens33  1a883146-2c88-43ea-ab1b-d9c3e23a87d0  ethernet  ens33
+```
