@@ -127,16 +127,11 @@ $cat local.repo
    gpgcheck = 1
    gpgkey = file:///etc/pki/rpm-rpg/repo_key (it can be downloaded from the repo - https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-8)
 ```
-List packages from a repository: `$ dnf|yum repository-packages epel list`.
-
-List modules: `$ dnf|yum module list`.
-
-Enable/disable module: `$ dnf|yum module enable|disable postgresql:12`.
-
-Install/reset module: `$ dnf|yum module reset|install`.
-
-Install GUI|Graphical Interface:
-
+*List packages from a repository: `$ dnf|yum repository-packages epel list`.
+*List modules: `$ dnf|yum module list`.
+*Enable/disable module: `$ dnf|yum module enable|disable postgresql:12`.
+*Install/reset module: `$ dnf|yum module reset|install`.
+*Install GUI|Graphical Interface:
 ```$ yum grouplist
    $ yum groupinstall "Graphical Administration Tools|Server with GUI"
 
