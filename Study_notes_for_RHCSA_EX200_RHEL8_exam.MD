@@ -168,7 +168,9 @@ CLI: `authconfig` or install GUI: `authconfig-gtk`
 
 `$ authconfig --enableldap --enableldapauth --enablemkhomedir --enableldaptls --ldaploadcacert=http://ldap.linuxacademy.com/pub/cert.pem --ldapserver=ldap.linuxacademy.com --ldapbasedn="dc=linuxacademy,dc=com" --update`
 
-`$ realmd` - for joining to an AD Domain
-`$ realmd discover <AD server>`
-`$ realmd join <AD server>`
-`$ ssh -l test@ad.linuxacademy.com IP_ADDRESS`
+```
+$ realmd` - for joining to an AD Domain
+$ realmd discover <AD server>`
+$ realmd join <AD server>`
+$ ssh -l test@ad.linuxacademy.com IP_ADDRESS
+```
