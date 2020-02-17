@@ -140,20 +140,35 @@ $cat local.repo
 ## 2. Manage basic networking
 
 CLI: `nmcli`
+
 GUI: `nmtui`
 
-Show devices/interface:
+Show devices | interfaces:
 ```
 # nmcli device status
 DEVICE  TYPE      STATE      CONNECTION
 ens33   ethernet  connected  ens33
 lo      loopback  unmanaged  --
 ```
-Show connections/configurations:
+Show connections | configurations:
 ```
 # ls -1 /etc/sysconfig/network-scripts/
 ifcfg-ens33
+
 # nmcli connection show
 NAME   UUID                                  TYPE      DEVICE
 ens33  1a883146-2c88-43ea-ab1b-d9c3e23a87d0  ethernet  ens33
 ```
+
+## 3. LDAP configuration
+
+**Packages:** `nss-pam-dap` , `pam_krb5` , `autofs` , `nfs-utils` , `openldap-clients` 
+
+CLI: `authconfig` or install GUI: `authconfig-gtk`
+
+`$ authconfig --enableldap --enableldapauth --enablemkhomedir --enableldaptls --ldaploadcacert=http://ldap.linuxacademy.com/pub/cert.pem --ldapserver=ldap.linuxacademy.com --ldapbasedn="dc=linuxacademy,dc=com" --update`
+
+`$ realmd` - for joining to an AD Domain
+`$ realmd discover <AD server>`
+`$ realmd join <AD server>`
+`$ ssh -l test@ad.linuxacademy.com IP_ADDRESS`
