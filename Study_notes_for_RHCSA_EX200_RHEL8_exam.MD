@@ -114,3 +114,25 @@ $ ll /lib/systemd/system/runlevel*.target
     lrwxrwxrwx. 1 root root 16 Feb  4 17:01 /lib/systemd/system/runlevel5.target -> graphical.target
     lrwxrwxrwx. 1 root root 13 Feb  4 17:01 /lib/systemd/system/runlevel6.target -> reboot.target
 ```
+#### YUM Repositories
+
+`$ yum-config-manager --add-repo https://dl.fedoraproject.org/pub/epel/8/Everything/x86_64/`
+
+```
+$cat local.repo
+   [repository_name]
+   name = It is like a description
+   baseurl = URL
+   enabled = 1
+   gpgcheck = 1
+   gpgkey = file:///etc/pki/rpm-rpg/repo_key (it can be downloaded from the repo - https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-8)
+```
+List packages from a repository: `$ dnf|yum repository-packages epel list`
+List modules: `$ dnf|yum module list`
+Enable/disable module: `$ dnf|yum module enable|disable postgresql:12`
+Install/reset module: `$ dnf|yum module reset|install`
+
+Install GUI/Graphical Interface:
+```$ yum grouplist
+   $ yum groupinstall "Graphical Administration Tools|Server with GUI"
+
