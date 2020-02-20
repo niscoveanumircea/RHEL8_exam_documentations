@@ -22,70 +22,71 @@ Locate, read, and use system documentation including man, info, and files in /us
 
 #### Operate running systems
 
-        Boot, reboot, and shut down a system normally
-        Boot systems into different targets manually
-        Interrupt the boot process in order to gain access to a system
-        Identify CPU/memory intensive processes and kill processes
-        Adjust process scheduling
-        Manage tuning profiles
-        Locate and interpret system log files and journals
-        Preserve system journals
-        Start, stop, and check the status of network services
-        Securely transfer files between systems
+
+   *Boot, reboot, and shut down a system normally
+   Boot systems into different targets manually
+   Interrupt the boot process in order to gain access to a system
+   Identify CPU/memory intensive processes and kill processes
+   Adjust process scheduling
+   Manage tuning profiles
+   Locate and interpret system log files and journals
+   Preserve system journals
+   Start, stop, and check the status of network services
+   Securely transfer files between systems*
 
 #### Configure local storage
 
-        List, create, delete partitions on MBR and GPT disks
-        Create and remove physical volumes
-        Assign physical volumes to volume groups
-        Create and delete logical volumes
-        Configure systems to mount file systems at boot by universally unique ID (UUID) or label
-        Add new partitions and logical volumes, and swap to a system non-destructively
+   *List, create, delete partitions on MBR and GPT disks
+   Create and remove physical volumes
+   Assign physical volumes to volume groups
+   Create and delete logical volumes
+   Configure systems to mount file systems at boot by universally unique ID (UUID) or label
+   Add new partitions and logical volumes, and swap to a system non-destructively*
 
 #### Create and configure file systems
 
-        Create, mount, unmount, and use vfat, ext4, and xfs file systems
-        Mount and unmount network file systems using NFS
-        Extend existing logical volumes
-        Create and configure set-GID directories for collaboration
-        Configure disk compression
-        Manage layered storage
-        Diagnose and correct file permission problems
+   *Create, mount, unmount, and use vfat, ext4, and xfs file systems
+   Mount and unmount network file systems using NFS
+   Extend existing logical volumes
+   Create and configure set-GID directories for collaboration
+   Configure disk compression
+   Manage layered storage
+   Diagnose and correct file permission problems*
 
 #### Deploy, configure, and maintain systems
 
-        Schedule tasks using at and cron
-        Start and stop services and configure services to start automatically at boot
-        Configure systems to boot into a specific target automatically
-        Configure time service clients
-        Install and update software packages from Red Hat Network, a remote repository, or from the local file system
-        Work with package module streams
-        Modify the system bootloader
+   *Schedule tasks using at and cron
+   Start and stop services and configure services to start automatically at boot
+   Configure systems to boot into a specific target automatically
+   Configure time service clients
+   Install and update software packages from Red Hat Network, a remote repository, or from the local file system
+   Work with package module streams
+   Modify the system bootloader*
 
 #### Manage basic networking
 
-        Configure IPv4 and IPv6 addresses
-        Configure hostname resolution
-        Configure network services to start automatically at boot
-        Restrict network access using firewall-cmd/firewall
+   *Configure IPv4 and IPv6 addresses
+   Configure hostname resolution
+   Configure network services to start automatically at boot
+   Restrict network access using firewall-cmd/firewall*
 
 #### Manage users and groups
 
-        Create, delete, and modify local user accounts
-        Change passwords and adjust password aging for local user accounts
-        Create, delete, and modify local groups and group memberships
-        Configure superuser access
+   *Create, delete, and modify local user accounts
+   Change passwords and adjust password aging for local user accounts
+   Create, delete, and modify local groups and group memberships
+   Configure superuser access*
 
 #### Manage security
 
-        Configure firewall settings using firewall-cmd/firewalld
-        Create and use file access control lists
-        Configure key-based authentication for SSH
-        Set enforcing and permissive modes for SELinux
-        List and identify SELinux file and process context
-        Restore default file contexts
-        Use boolean settings to modify system SELinux settings
-        Diagnose and address routine SELinux policy violations
+   *Configure firewall settings using firewall-cmd/firewalld
+   Create and use file access control lists
+   Configure key-based authentication for SSH
+   Set enforcing and permissive modes for SELinux
+   List and identify SELinux file and process context
+   Restore default file contexts
+    Use boolean settings to modify system SELinux settings
+   Diagnose and address routine SELinux policy violations*
 
 
 ## 1. Deploy, configure, and maintain systems
@@ -139,16 +140,17 @@ $cat local.repo
 
 #### Updating KERNEL
 
-```
-$ yum clean all
-$ yum list kernel
-$ yum install kernel
-```
+      ```
+      $ yum clean all
+      $ yum list kernel
+      $ yum install kernel
+      ```
 OR using RPM
 
    `$ rpm -ivh kernel-3.10.0-327.4.5.el7.x86_64.rpm`
    
 The name of your kernel package may vary. At this point you may realize, upon running the above command, you receive an error relating to failed dependencies. To resolve this, we need to update our `linux-firmware` and `dracut` packages:
+
    `$ yum install linux-firmware dracut`
 
 With the dependencies resolved, rerun the installation command. If you now **navigate to the /boot directory, you can view the newest kernel installed under vmlinuz-3.10.0327.4.5.el7.x86_64. You can also see the older kernel located alongside it. If vmlinuz-3.10.0-327.4.5.el7.x86_64 is not located in the /boot directory, run dracut to regenerate it for the latest kernel.**
