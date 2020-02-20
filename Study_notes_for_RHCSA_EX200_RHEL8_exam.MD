@@ -8,22 +8,22 @@ _by Mircea Niscoveanu
    RHCSA exam candidates should be able to accomplish the tasks below without assistance. These have been grouped into several categories.
 Understand and use essential tools
 
-Access a shell prompt and issue commands with correct syntax
-Use input-output redirection (>, >>, |, 2>, etc.)
-Use grep and regular expressions to analyze text
-Access remote systems using SSH
-Log in and switch users in multiuser targets
-Archive, compress, unpack, and uncompress files using tar, star, gzip, and bzip2
-Create and edit text files
-Create, delete, copy, and move files and directories
-Create hard and soft links
-List, set, and change standard ugo/rwx permissions
-Locate, read, and use system documentation including man, info, and files in /usr/share/doc
+  - Access a shell prompt and issue commands with correct syntax
+  - Use input-output redirection (>, >>, |, 2>, etc.)
+  - Use grep and regular expressions to analyze text
+  - Access remote systems using SSH
+  - Log in and switch users in multiuser targets
+  - Archive, compress, unpack, and uncompress files using tar, star, gzip, and bzip2
+  - Create and edit text files
+  - Create, delete, copy, and move files and directories
+  - Create hard and soft links
+  - List, set, and change standard ugo/rwx permissions
+  - Locate, read, and use system documentation including man, info, and files in /usr/share/doc
 
 #### Operate running systems
 
 ```
-   *Boot, reboot, and shut down a system normally
+   Boot, reboot, and shut down a system normally
    Boot systems into different targets manually
    Interrupt the boot process in order to gain access to a system
    Identify CPU/memory intensive processes and kill processes
@@ -32,27 +32,27 @@ Locate, read, and use system documentation including man, info, and files in /us
    Locate and interpret system log files and journals
    Preserve system journals
    Start, stop, and check the status of network services
-   Securely transfer files between systems*
+   Securely transfer files between systems
 ```
 #### Configure local storage
-`
+```
    *List, create, delete partitions on MBR and GPT disks
    Create and remove physical volumes
    Assign physical volumes to volume groups
    Create and delete logical volumes
    Configure systems to mount file systems at boot by universally unique ID (UUID) or label
    Add new partitions and logical volumes, and swap to a system non-destructively*
-`
+```
 #### Create and configure file systems
-`
-   *Create, mount, unmount, and use vfat, ext4, and xfs file systems
+```
+   Create, mount, unmount, and use vfat, ext4, and xfs file systems
    Mount and unmount network file systems using NFS
    Extend existing logical volumes
    Create and configure set-GID directories for collaboration
    Configure disk compression
    Manage layered storage
    Diagnose and correct file permission problems*
-`
+```
 #### Deploy, configure, and maintain systems
 `
    *Schedule tasks using at and cron
