@@ -137,6 +137,35 @@ $cat local.repo
    $ yum groupinstall "Graphical Administration Tools|Server with GUI"
    ```
 
+#### Updating KERNEL
+
+```
+$ yum clean all
+$ yum list kernel
+$ yum install kernel
+```
+OR using RPM
+
+   `$ rpm -ivh kernel-3.10.0-327.4.5.el7.x86_64.rpm`
+   
+The name of your kernel package may vary. At this point you may realize, upon running the above command, you receive an error relating to failed dependencies. To resolve this, we need to update our `linux-firmware` and `dracut` packages:
+   `$ yum install linux-firmware dracut`
+
+With the dependencies resolved, rerun the installation command. If you now **navigate to the /boot directory, you can view the newest kernel installed under vmlinuz-3.10.0327.4.5.el7.x86_64. You can also see the older kernel located alongside it. If vmlinuz-3.10.0-327.4.5.el7.x86_64 is not located in the /boot directory, run dracut to regenerate it for the latest kernel.**
+
+Ensure the new kernel is installed by rebooting the system and once more running the `uname -r` command. It should output the version number of the newly-downloaded kernel.
+
+```
+$ yum updateinfo all
+Last metadata expiration check: 0:11:40 ago on Thu 20 Feb 2020 10:50:49 PM CET.
+Updates Information Summary: all
+    3 New Package notice(s)
+    1 Security notice(s)
+        1 Low Security notice(s)
+    1 Bugfix notice(s)
+    2 other notice(s)
+```
+
 ## 2. Manage basic networking
 
 CLI: `nmcli`
