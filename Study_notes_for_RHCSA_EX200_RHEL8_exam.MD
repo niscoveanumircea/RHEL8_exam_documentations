@@ -22,7 +22,7 @@ Locate, read, and use system documentation including man, info, and files in /us
 
 #### Operate running systems
 
-
+`
    *Boot, reboot, and shut down a system normally
    Boot systems into different targets manually
    Interrupt the boot process in order to gain access to a system
@@ -33,18 +33,18 @@ Locate, read, and use system documentation including man, info, and files in /us
    Preserve system journals
    Start, stop, and check the status of network services
    Securely transfer files between systems*
-
+`
 #### Configure local storage
-
+`
    *List, create, delete partitions on MBR and GPT disks
    Create and remove physical volumes
    Assign physical volumes to volume groups
    Create and delete logical volumes
    Configure systems to mount file systems at boot by universally unique ID (UUID) or label
    Add new partitions and logical volumes, and swap to a system non-destructively*
-
+`
 #### Create and configure file systems
-
+`
    *Create, mount, unmount, and use vfat, ext4, and xfs file systems
    Mount and unmount network file systems using NFS
    Extend existing logical volumes
@@ -52,9 +52,9 @@ Locate, read, and use system documentation including man, info, and files in /us
    Configure disk compression
    Manage layered storage
    Diagnose and correct file permission problems*
-
+`
 #### Deploy, configure, and maintain systems
-
+`
    *Schedule tasks using at and cron
    Start and stop services and configure services to start automatically at boot
    Configure systems to boot into a specific target automatically
@@ -62,23 +62,23 @@ Locate, read, and use system documentation including man, info, and files in /us
    Install and update software packages from Red Hat Network, a remote repository, or from the local file system
    Work with package module streams
    Modify the system bootloader*
-
+`
 #### Manage basic networking
-
+`
    *Configure IPv4 and IPv6 addresses
    Configure hostname resolution
    Configure network services to start automatically at boot
    Restrict network access using firewall-cmd/firewall*
-
+`
 #### Manage users and groups
-
+`
    *Create, delete, and modify local user accounts
    Change passwords and adjust password aging for local user accounts
    Create, delete, and modify local groups and group memberships
    Configure superuser access*
-
+`
 #### Manage security
-
+`
    *Configure firewall settings using firewall-cmd/firewalld
    Create and use file access control lists
    Configure key-based authentication for SSH
@@ -87,7 +87,7 @@ Locate, read, and use system documentation including man, info, and files in /us
    Restore default file contexts
     Use boolean settings to modify system SELinux settings
    Diagnose and address routine SELinux policy violations*
-
+`
 
 ## 1. Deploy, configure, and maintain systems
 
