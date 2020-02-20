@@ -22,7 +22,7 @@ Locate, read, and use system documentation including man, info, and files in /us
 
 #### Operate running systems
 
-`
+```
    *Boot, reboot, and shut down a system normally
    Boot systems into different targets manually
    Interrupt the boot process in order to gain access to a system
@@ -33,7 +33,7 @@ Locate, read, and use system documentation including man, info, and files in /us
    Preserve system journals
    Start, stop, and check the status of network services
    Securely transfer files between systems*
-`
+```
 #### Configure local storage
 `
    *List, create, delete partitions on MBR and GPT disks
