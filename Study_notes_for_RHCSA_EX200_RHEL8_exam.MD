@@ -224,7 +224,8 @@ GBT - unlimited partitions and more disk size -> `$ gdisk`
 [server]
 
 `$ yum install -y samba`
-`/etc/samba/smb/conf` -> edit it
+`/etc/samba/smb/conf` -> edit config
+`systemctl start smb` - start samba service
 `$ useradd samba_user` - add a new linux user for samba
 `$ smbpasswd -a samba_user`
 
