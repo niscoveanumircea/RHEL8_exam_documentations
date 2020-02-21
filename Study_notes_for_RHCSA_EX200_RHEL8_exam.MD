@@ -205,3 +205,14 @@ $ realmd discover <AD server>`
 $ realmd join <AD server>`
 $ ssh -l test@ad.linuxacademy.com IP_ADDRESS
 ```
+
+#### Configure local storage
+
+MBR - supports 4 partions -> `$ fdisk`
+GBT - unlimited partitions and more disk size -> `$ gdisk`
+
+`$ resize2fs` -> resize ext2/ext3/ext4 filesystems
+`$ xfs_growfs` -> resize xfs filesystems
+
+`$ tune2fs` -> configures ext filesystems / label / UUID etc etc
+`$ xfs_admin` -> configures xfs filesystems / label / UUID etc etc
