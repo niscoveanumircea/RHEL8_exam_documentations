@@ -89,7 +89,7 @@ Understand and use essential tools
    - Diagnose and address routine SELinux policy violations
    
 
-## 1. Deploy, configure, and maintain systems
+### 1. Deploy, configure, and maintain systems
 
 * Check current configuration:
    `$ systemctl get-default`
@@ -168,7 +168,7 @@ Updates Information Summary: all
     2 other notice(s)
 ```
 
-## 2. Manage basic networking
+### 2. Manage basic networking
 
 CLI: `nmcli`
 
@@ -191,7 +191,7 @@ NAME   UUID                                  TYPE      DEVICE
 ens33  1a883146-2c88-43ea-ab1b-d9c3e23a87d0  ethernet  ens33
 ```
 
-## 3. LDAP configuration
+### 3. LDAP configuration
 
 **Packages:** `nss-pam-dap` , `pam_krb5` , `autofs` , `nfs-utils` , `openldap-clients` 
 
@@ -206,7 +206,7 @@ $ realmd join <AD server>`
 $ ssh -l test@ad.linuxacademy.com IP_ADDRESS
 ```
 
-#### Configure local storage
+### 4. Configure local storage
 
 MBR - supports 4 partions -> `$ fdisk`
 GBT - unlimited partitions and more disk size -> `$ gdisk`
@@ -216,3 +216,21 @@ GBT - unlimited partitions and more disk size -> `$ gdisk`
 
 `$ tune2fs` -> configures ext filesystems / label / UUID etc etc
 `$ xfs_admin` -> configures xfs filesystems / label / UUID etc etc
+
+### 5. Create and configure file systems
+
+#### SAMBA
+
+[server]
+
+`$ yum install -y samba`
+`/etc/samba/smb/conf` -> edit it
+`$ useradd samba_user` - add a new linux user for samba
+`$ smbpasswd -a samba_user`
+
+[client]
+
+`$ yum install -y samba-client cifs-utils`
+`$ mount -t cifs //server_ip/samba_shared_dir /mnt/samba_mountpoint -ousername=samba_user,password=samba_password`
+
+The files written on the client with any user will appear on the server in the ownership of the user "samba_user".
