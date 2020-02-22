@@ -251,7 +251,10 @@ $ systemctl start nfs-server
 
 [client]
 
-`$ yum install -y nfs-utils`
+```
+$ yum install -y nfs-utils
+$ systemctl start rpcbind.service
+```
 
 Show file system exports on the client: `$ showmount -e SERVER_IP`
 
