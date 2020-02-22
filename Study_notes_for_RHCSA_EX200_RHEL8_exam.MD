@@ -255,8 +255,8 @@ $ systemctl start nfs-server
 
 Show file system exports on the client: `$ showmount -e SERVER_IP`
 
-*Mounting nfs:*
-
-`$ mount -t nfs SERVER_IP:/nfs-share /mounted-nfs-share`		
-*/etc/fstab*: `SERVER_IP:/nfs-share /mounted-nfs-share      nfs4    defaults 0 0`
-	
+**Mounting nfs:**
+```
+$ mount -t nfs SERVER_IP:/nfs-share /mounted-nfs-share`		
+$ vi /etc/fstab*: `SERVER_IP:/nfs-share /mounted-nfs-share      nfs4    defaults 0 0
+```	
