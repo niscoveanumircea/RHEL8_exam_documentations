@@ -235,3 +235,23 @@ GBT - unlimited partitions and more disk size -> `$ gdisk`
 `$ mount -t cifs //server_ip/samba_shared_dir /mnt/samba_mountpoint -ousername=samba_user,password=samba_password`
 
 The files written on the client with any user will appear on the server in the ownership of the user "samba_user".
+
+#### Network File System
+[server]
+```
+	$ yum install nfs-utils
+	$ systemctl start rpcbind
+	$ systemctl start nfs-server
+```
+/etc/exports: `/nfs-share CLIENT_IP(*,rw,sync, permissions etc)`  + `$ exportfs -a` to export al exports in file
+
+[client]
+`$ yum install -y nfs-utils`
+
+* Show file system exports on the client: `$ showmount -e SERVER_IP` (on client)
+* Mounting nfs:
+
+`$ mount -t nfs SERVER_IP:/nfs-share /mounted-nfs-share` (on client)
+		
+/etc/fstab: `SERVER_IP:/nfs-share /mounted-nfs-share      nfs4    defaults 0 0` (on client)
+	
