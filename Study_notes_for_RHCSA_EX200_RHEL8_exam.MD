@@ -243,9 +243,7 @@ The files written on the client with any user will appear on the server in the o
 
 ```
 $ yum install nfs-utils
-
 $ systemctl start rpcbind
-
 $ systemctl start nfs-server
 
 ```
@@ -255,10 +253,10 @@ $ systemctl start nfs-server
 
 `$ yum install -y nfs-utils`
 
-* Show file system exports on the client: `$ showmount -e SERVER_IP` (on client)
-* Mounting nfs:
+Show file system exports on the client: `$ showmount -e SERVER_IP`
+##### Mounting nfs:
 
-`$ mount -t nfs SERVER_IP:/nfs-share /mounted-nfs-share` (on client)
+`$ mount -t nfs SERVER_IP:/nfs-share /mounted-nfs-share`
 		
-/etc/fstab: `SERVER_IP:/nfs-share /mounted-nfs-share      nfs4    defaults 0 0` (on client)
+/etc/fstab: `SERVER_IP:/nfs-share /mounted-nfs-share      nfs4    defaults 0 0`
 	
