@@ -193,7 +193,8 @@ ens33  1a883146-2c88-43ea-ab1b-d9c3e23a87d0  ethernet  ens33
 
 ### 3. LDAP configuration
 
-**Packages:** `nss-pam-dap` , `pam_krb5` , `autofs` , `nfs-utils` , `openldap-clients` 
+**Packages:** `nss-pam-ldapd` , `pam_krb5` , `autofs` , `nfs-utils` , `openldap-clients` 
+
 
 CLI: `authconfig` or install GUI: `authconfig-gtk`
 
@@ -214,17 +215,17 @@ Install the `autofs`, `openldap-clients` and `nfs-utils` packages:
 
 Open the `/etc/auto.master.d/ldap.autofs` file, and add the following line:
 
-`/home/guests /etc/auto.ldap`
+`/home /etc/auto.ldap`
 
 Save and exit.
 
 Now create the `/etc/auto.ldap` file, and add the following:
 
-`* -rw ldap.linuxacademy.com:/home/guests/&`
+`* -rw ldap.linuxacademy.com:/home/&`
 
 Save and exit.
 
-Additionally, we need to enable the ability to use LDAP credentials through SSH. Open the /`etc/pam.d/sshd` file, and add the following lines to the top of the file:
+Additionally, we need to enable the ability to use LDAP credentials through SSH. Open the `/etc/pam.d/sshd` file, and add the following lines to the top of the file:
 
 `auth sufficient pam_ldap.so`
 `auth sufficient pam_permit.so`
