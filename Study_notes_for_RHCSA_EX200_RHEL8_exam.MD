@@ -206,6 +206,35 @@ $ realmd join <AD server>`
 $ ssh -l test@ad.linuxacademy.com IP_ADDRESS
 ```
 
+##### Auto-Mount a Home Directory
+
+Install the `autofs`, `openldap-clients` and `nfs-utils` packages:
+
+`$ yum install -y autofs nfs-utils openldap-clients`
+
+Open the `/etc/auto.master.d/ldap.autofs` file, and add the following line:
+
+`/home/guests /etc/auto.ldap`
+
+Save and exit.
+
+Now create the `/etc/auto.ldap` file, and add the following:
+
+`* -rw ldap.linuxacademy.com:/home/guests/&`
+
+Save and exit.
+
+Additionally, we need to enable the ability to use LDAP credentials through SSH. Open the /`etc/pam.d/sshd` file, and add the following lines to the top of the file:
+
+`auth sufficient pam_ldap.so`
+`auth sufficient pam_permit.so`
+
+Start and enable the automounter daemon, then restart SSH:
+
+`$ systemctl start autofs && systemctl enable autofs`
+`$ systemctl restart sshd`
+
+
 ### 4. Configure local storage
 
 MBR - supports 4 partions -> `$ fdisk`
@@ -258,8 +287,19 @@ $ systemctl start rpcbind.service
 
 Show file system exports on the client: `$ showmount -e SERVER_IP`
 
-**Mounting nfs:**
+**Mounting nfs:*
 ```
-$ mount -t nfs SERVER_IP:/nfs-share /mounted-nfs-share`		
-$ vi /etc/fstab*: `SERVER_IP:/nfs-share /mounted-nfs-share      nfs4    defaults 0 0
-```	
+$ mount -t nfs SERVER_IP:/nfs-share /mounted-nfs-share	
+$ vi /etc/fstab : SERVER_IP:/nfs-share /mounted-nfs-share      nfs4    defaults 0 0
+```
+### 6. Manage users and groups
+
+`$ chage` - set password aging
+`$ authconfig --minpasslength X` - set min password length
+
+or
+
+file `/etc/security/pwquality.conf`- set password configuration
+
+`$ passwd -e [user]` - force expire password
+
