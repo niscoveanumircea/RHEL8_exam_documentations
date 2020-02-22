@@ -221,18 +221,19 @@ GBT - unlimited partitions and more disk size -> `$ gdisk`
 
 #### SAMBA
 
-[server]
+server
 
 `$ yum install -y samba`
-`/etc/samba/smb/conf` -> edit config
-`systemctl start smb` - start samba service
+`$ vi /etc/samba/smb/conf` - edit config
+`$ systemctl start smb` - start samba service
 `$ useradd samba_user` - add a new linux user for samba
 `$ smbpasswd -a samba_user`
 
 [client]
-
-`$ yum install -y samba-client cifs-utils`
-`$ mount -t cifs //server_ip/samba_shared_dir /mnt/samba_mountpoint -ousername=samba_user,password=samba_password`
+```
+$ yum install -y samba-client cifs-utils
+$ mount -t cifs //server_ip/samba_shared_dir /mnt/samba_mountpoint -ousername=samba_user,password=samba_password
+```
 
 The files written on the client with any user will appear on the server in the ownership of the user "samba_user".
 
