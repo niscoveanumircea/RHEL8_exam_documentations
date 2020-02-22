@@ -239,9 +239,9 @@ The files written on the client with any user will appear on the server in the o
 #### Network File System
 [server]
 ```
-	$ yum install nfs-utils
-	$ systemctl start rpcbind
-	$ systemctl start nfs-server
+$ yum install nfs-utils
+$ systemctl start rpcbind
+$ systemctl start nfs-server
 ```
 /etc/exports: `/nfs-share CLIENT_IP(*,rw,sync, permissions etc)`  + `$ exportfs -a` to export al exports in file
 
