@@ -221,8 +221,7 @@ GBT - unlimited partitions and more disk size -> `$ gdisk`
 
 #### SAMBA
 
-server
-
+[server]
 `$ yum install -y samba`
 `$ vi /etc/samba/smb/conf` - edit config
 `$ systemctl start smb` - start samba service
@@ -239,14 +238,19 @@ The files written on the client with any user will appear on the server in the o
 
 #### Network File System
 [server]
+
 ```
 $ yum install nfs-utils
+
 $ systemctl start rpcbind
+
 $ systemctl start nfs-server
+
 ```
 /etc/exports: `/nfs-share CLIENT_IP(*,rw,sync, permissions etc)`  + `$ exportfs -a` to export al exports in file
 
 [client]
+
 `$ yum install -y nfs-utils`
 
 * Show file system exports on the client: `$ showmount -e SERVER_IP` (on client)
