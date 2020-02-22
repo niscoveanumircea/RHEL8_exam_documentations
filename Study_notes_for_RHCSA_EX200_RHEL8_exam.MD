@@ -254,9 +254,9 @@ $ systemctl start nfs-server
 `$ yum install -y nfs-utils`
 
 Show file system exports on the client: `$ showmount -e SERVER_IP`
-##### Mounting nfs:
 
-`$ mount -t nfs SERVER_IP:/nfs-share /mounted-nfs-share`
-		
+###### Mounting nfs:
+
+`$ mount -t nfs SERVER_IP:/nfs-share /mounted-nfs-share`		
 /etc/fstab: `SERVER_IP:/nfs-share /mounted-nfs-share      nfs4    defaults 0 0`
 	
