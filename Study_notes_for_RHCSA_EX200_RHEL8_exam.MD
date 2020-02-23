@@ -359,9 +359,10 @@ $ systemctl start vdo.service
 
 * Create a VDO volume:
 
-	`$ vdo create --name=vdo_volume_1 --device=/dev/devName --vdoLogicalSize=vol_size`
+`$ vdo create --name=vdo_volume_1 --device=/dev/devName --vdoLogicalSize=vol_size`
 
 vdoLogicalSize - 10 times the disk space if used for storage for VMs / containers
+
 vdoLogicalSize -  3 times the disk space if used for other purposes: web / databases etc
 
 * View information on vdo volumes:
@@ -384,7 +385,7 @@ and check:
 
 `$ chrt`
 
-#### AutoF
+#### AutoFS 
 
 [client]
 ```
