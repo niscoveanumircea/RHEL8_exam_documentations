@@ -402,8 +402,7 @@ $ vi /etc/auto.master.d/auto.master
 
 `/etc/auto.nfs` - is the map file; can have any name
 
-`auto -rw,soft,intr NFS_SERVER_IP:/NFS_SHARE_PATH`
-
+```auto -rw,soft,intr NFS_SERVER_IP:/NFS_SHARE_PATH
 +
-
-`$ systemctl restart autofs.service`
+$ systemctl restart autofs.service
+```
