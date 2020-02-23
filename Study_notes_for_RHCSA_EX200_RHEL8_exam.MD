@@ -372,6 +372,13 @@ vdoLogicalSize -  3 times the disk space if used for other purposes: web / datab
 
 `$ mkfs.ext 4 -K /dev/mapper/VDO_NAME`
 
+* Resize VDO:
+
+`$ vdo growLogical --name=vdo_volume_1 --vdoLogicalSize=New_vol_size`
+
+and check:
+
+`$ vdostats --human-readable`
 
 #### Adjust Real Time Process Priorities (chrt)
 
