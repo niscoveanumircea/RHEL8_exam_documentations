@@ -320,7 +320,7 @@ Priority is specified in **NI** column.
   7187 root      20   0   63912   4304   3616 R   0.3   0.5   0:00.02 top
 ```
 
-`$ nice` - sets command of processes when starting
+`$ nice` - sets priority when starting processes
 
 Set process priority to : 5
 
@@ -335,3 +335,65 @@ Set process priority to : 5
 For process that already started:
 
 `$ renice -n PRIORITY -p PID`
+
+
+#### Persistent journals
+
+Normally, `journald` journals don't persist through reboots.
+
+Enable persistence:
+```
+$ mkdir /var/logs/journal
+$ systemctl restart system-journald.service
+```
+
+
+#### Working with Virtual Data Optimizer (VDO)
+
+* Install required package: 
+
+```
+$ yum install vdo kmod-kvdo
+$ systemctl start vdo.service
+```
+
+* Create a VDO volume:
+
+	`$ vdo create --name=vdo_volume_1 --device=/dev/devName --vdoLogicalSize=vol_size`
+
+vdoLogicalSize - 10 times the disk space if used for storage for VMs / containers
+vdoLogicalSize -  3 times the disk space if used for other purposes: web / databases etc
+
+* View information on vdo volumes:
+
+`$ vdostats --human-readable`
+
+* Create filesystem on top of VDO
+
+`$ mkfs.ext 4 -K /dev/mapper/VDO_NAME`
+
+
+#### Adjust Real Time Process Priorities (chrt)
+
+`$ chrt`
+
+#### AutoF
+
+[client]
+```
+$ yum install -y autofs
+$ systectm start autofs.service
+```
+
+Create auto.master file (similar to /etc/auto.master):
+
+```
+$ vi /etc/auto.master.d/auto.master
+/nfs /etc/auto.nfs
+```
+
+`/etc/auto.nfs` - is the map file; can have any name
+
+`auto -rw,soft,intr NFS_SERVER_IP:/NFS_SHARE_PATH`
++
+`$ systectm start autofs.service`
