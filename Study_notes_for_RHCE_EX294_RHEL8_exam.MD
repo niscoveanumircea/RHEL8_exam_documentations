@@ -117,7 +117,7 @@ _adapted by Mircea Niscoveanu
 
 ### Working with Virtual Data Optimizer (VDO)
 
-* Install required package: `yum install vdo`
+* Install required package: `yum install vdo kmod-kvdo`
 
 * Create a VDO volume:
 
