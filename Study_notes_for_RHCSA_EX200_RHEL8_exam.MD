@@ -308,3 +308,30 @@ file `/etc/security/pwquality.conf`- set password configuration
 
 `$ passwd -e [user]` - force expire password
 
+### 7 RHCSA 8 Updates
+
+#### Adjust Process Priorities
+
+Priority is specified in **NI** column.
+
+```
+   PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+  5966 root      20   0       0      0      0 I   0.3   0.0   0:03.22 kworker/0:1-events_power_efficient
+  7187 root      20   0   63912   4304   3616 R   0.3   0.5   0:00.02 top
+```
+
+`$ nice` - sets command of processes when starting
+
+Set process priority to : 5
+
+`$ nice 5 cat /dev/urandom > /dev/null &`
+
+```
+   PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+  7235 root      25   5    7420   1940   1724 R  98.3   0.2   2:30.32 cat /dev/urandom
+  5966 root      20   0       0      0      0 I   0.3   0.0   0:03.48 [kworker/0:1-xfs-cil/dm-0]
+```
+
+For process that already started:
+
+`$ renice -n PRIORITY -p PID`
