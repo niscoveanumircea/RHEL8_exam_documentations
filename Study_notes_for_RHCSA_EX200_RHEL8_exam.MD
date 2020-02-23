@@ -234,8 +234,10 @@ auth sufficient pam_permit.so
 
 Start and enable the automounter daemon, then restart SSH:
 
-`$ systemctl start autofs && systemctl enable autofs`
-`$ systemctl restart sshd`
+```
+$ systemctl start autofs && systemctl enable autofs
+$ systemctl restart sshd
+```
 
 
 ### 4. Configure local storage
