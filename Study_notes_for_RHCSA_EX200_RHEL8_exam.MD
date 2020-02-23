@@ -213,15 +213,15 @@ Install the `autofs`, `openldap-clients` and `nfs-utils` packages:
 
 `$ yum install -y autofs nfs-utils openldap-clients`
 
-Open the `/etc/auto.master.d/ldap.autofs` file, and add the following line:
+Create one config  `/etc/auto.master.d/ldap.autofs` file (similar to /etc/auto.master), and add the following line:
 
-`/home /etc/auto.ldap`
+`/home/guests /etc/auto.ldap`
 
 Save and exit.
 
 Now create the `/etc/auto.ldap` file, and add the following:
 
-`* -rw ldap.linuxacademy.com:/home/&`
+`* -rw ldap.linuxacademy.com:/home/guests/&`
 
 Save and exit.
 
