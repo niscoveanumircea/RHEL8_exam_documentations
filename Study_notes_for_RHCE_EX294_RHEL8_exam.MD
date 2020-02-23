@@ -118,10 +118,14 @@ _adapted by Mircea Niscoveanu
 ### Working with Virtual Data Optimizer (VDO)
 
 * Install required package: `yum install vdo`
+
 * Create a VDO volume:
+
 	`$ vdo create --name=vdo_volume_1 --device=/dev/devName --vdoLogicalSize=vol_size`
+
 * View information on vdo volumes:
-	`$ vdostats --human-readable`
+
+`$ vdostats --human-readable`
 
 ### Configure time service client : chrony
 
