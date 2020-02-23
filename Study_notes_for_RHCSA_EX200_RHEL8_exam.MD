@@ -227,8 +227,10 @@ Save and exit.
 
 Additionally, we need to enable the ability to use LDAP credentials through SSH. Open the `/etc/pam.d/sshd` file, and add the following lines to the top of the file:
 
-`auth sufficient pam_ldap.so`
-`auth sufficient pam_permit.so`
+```
+auth sufficient pam_ldap.so
+auth sufficient pam_permit.so
+```
 
 Start and enable the automounter daemon, then restart SSH:
 
@@ -288,11 +290,13 @@ $ systemctl start rpcbind.service
 
 Show file system exports on the client: `$ showmount -e SERVER_IP`
 
-**Mounting nfs:*
+**Mounting NFS**
+
 ```
 $ mount -t nfs SERVER_IP:/nfs-share /mounted-nfs-share	
 $ vi /etc/fstab : SERVER_IP:/nfs-share /mounted-nfs-share      nfs4    defaults 0 0
 ```
+
 ### 6. Manage users and groups
 
 `$ chage` - set password aging
