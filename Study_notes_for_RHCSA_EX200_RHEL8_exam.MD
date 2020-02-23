@@ -243,6 +243,7 @@ $ systemctl restart sshd
 ### 4. Configure local storage
 
 MBR - supports 4 partions -> `$ fdisk`.
+
 GBT - unlimited partitions and more disk size -> `$ gdisk`.
 
 EXT:
