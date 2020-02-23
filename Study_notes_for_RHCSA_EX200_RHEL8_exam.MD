@@ -243,10 +243,16 @@ Start and enable the automounter daemon, then restart SSH:
 MBR - supports 4 partions -> `$ fdisk`
 GBT - unlimited partitions and more disk size -> `$ gdisk`
 
+EXT:
+
 `$ resize2fs` -> resize ext2/ext3/ext4 filesystems
+
 `$ xfs_growfs` -> resize xfs filesystems
 
+XFS:
+
 `$ tune2fs` -> configures ext filesystems / label / UUID etc etc
+
 `$ xfs_admin` -> configures xfs filesystems / label / UUID etc etc
 
 ### 5. Create and configure file systems
