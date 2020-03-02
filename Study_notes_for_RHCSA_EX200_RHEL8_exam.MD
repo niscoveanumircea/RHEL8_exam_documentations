@@ -378,9 +378,16 @@ vdoLogicalSize -  3 times the disk space if used for other purposes: web / datab
 
 `$ vdostats --human-readable`
 
-* Create filesystem on top of VDO
+* For creating filesystems on top of VDO , we need to make use **DON'T DISCARD BLOCKS** option:
 
-`$ mkfs.ext4 -K /dev/mapper/VDO_NAME`
+```
+$ mkfs.xfs -K /dev/mapper/VDO_NAME
+$ mkfs.ext4 -E nodiscard /dev/mapper/VDO_NAME
+
++
+
+$ udevadm settle -> to make sure the system registers the new device node
+```
 
 * Resize VDO:
 
@@ -389,6 +396,16 @@ vdoLogicalSize -  3 times the disk space if used for other purposes: web / datab
 and check:
 
 `$ vdostats --human-readable`
+
+* Mounting persistent filesystem using VDO:
+
+Need to add some extra flags. Before the actual mount, vdo service and others must first start
+
+```
+$ cat /etc/fstab
+/dev/mapper/NAME  /mount/point   FS_TYPE(xfs,ext etc)    defaults,_netdev,x-systemd.device-timeout=0,x-systemd.requires=vdo.service    0 0  
+```
+
 
 #### Adjust Real Time Process Priorities (chrt)
 
