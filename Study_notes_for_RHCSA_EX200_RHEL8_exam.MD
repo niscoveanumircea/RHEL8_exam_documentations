@@ -394,7 +394,13 @@ $ udevadm settle -> to make sure the system registers the new device node
 
 * Resize VDO:
 
-`$ vdo growLogical --name=vdo_volume_1 --vdoLogicalSize=New_vol_size`
+```
+$ vdo growPhysical --name=vdo_volume_1 ( after extending an underlaying LVM for example )
+$ vdo growLogical --name=vdo_volume_1 --vdoLogicalSize=New_vol_size
++
+$ xfs_growfs /dev/mapper/vdo_volume_1  or 
+$ resize2fs /dev/mapper/vdo_volume_1
+```
 
 and check:
 
