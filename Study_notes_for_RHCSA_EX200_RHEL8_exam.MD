@@ -380,7 +380,7 @@ vdoLogicalSize -  3 times the disk space if used for other purposes: web / datab
 
 * Create filesystem on top of VDO
 
-`$ mkfs.ext 4 -K /dev/mapper/VDO_NAME`
+`$ mkfs.ext4 -K /dev/mapper/VDO_NAME`
 
 * Resize VDO:
 
