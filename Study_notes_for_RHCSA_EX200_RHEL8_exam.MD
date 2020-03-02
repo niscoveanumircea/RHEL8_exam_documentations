@@ -376,7 +376,10 @@ vdoLogicalSize -  3 times the disk space if used for other purposes: web / datab
 
 * View information on vdo volumes:
 
-`$ vdostats --human-readable`
+```
+$ vdostats --human-readable
+$ vdo status --name=VDO_NAME
+```
 
 * For creating filesystems on top of VDO , we need to make use **DON'T DISCARD BLOCKS** option:
 
