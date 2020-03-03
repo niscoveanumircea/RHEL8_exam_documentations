@@ -123,18 +123,19 @@ $ ll /lib/systemd/system/runlevel*.target
 
 * List modules: 
 
-	`$ yum module list` - shows all versions for each module
+`$ yum module list` - shows all versions for each module
+
 * Enable another version: 
 
-	`$ yum module enable postgresql:12`
+`$ yum module enable postgresql:12`
 	
 * Reset module version to default [d]: 
 
-	`yum module reset postgresql` 
+`yum module reset postgresql` 
 	
 * Other yum module arguments : 
 
-	`$ yum module {update,provides,install,reset,disable,enable,info,remove,list} MODULE_NAME`
+`$ yum module {update,provides,install,reset,disable,enable,info,remove,list} MODULE_NAME`
    
 * List modules: `$ dnf|yum module list`.
 * Enable/disable module: `$ dnf|yum module enable|disable postgresql:12`.
@@ -160,14 +161,13 @@ $ cat /etc/fstab
 
 `$ cat /etc/yum.repos.d/local.repo`
 
-*
+
 [local_repo_name]
 name = It is like a description
 baseurl = file:///repo/path/to/dir/with/packages
 enabled = 1
 gpgcheck = 1
 gpgkey = file:///repo/path/to/dir/with/packages/RPM-KEY  ( or stored in /etc/pki/rpm-gpg )
-*
 
 
 ##### YUM Other Commands
