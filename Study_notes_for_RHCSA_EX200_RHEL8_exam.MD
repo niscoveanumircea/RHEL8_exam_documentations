@@ -607,9 +607,10 @@ Another important task for the system administrator is managing priorities and n
 When you use nice and renice, you use a nice value, and the nice value ranges from **-20 (highest) to positive 19 (lowest)**
 As a USER, you can only reduce priority of the processes;
 
-nice -n 10(nice value) /bin/bash command etc
-renice -n 10(nice valie) -u|g|p  (user,group,pid)
-
+```
+nice -n 10 (nice value)     /bin/bash command etc
+renice -n 10 (nice valie)   -p PID
+```
 
 The library calls below are used to set the priority of non-realtime processes.
 
