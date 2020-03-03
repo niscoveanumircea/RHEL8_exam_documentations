@@ -309,9 +309,11 @@ $ yum install -y nfs-utils
 $ systemctl start rpcbind.service
 ```
 
-Show file system exports on the client: `$ showmount -e SERVER_IP`
+Show file system exports on the client: 
 
-**Mounting the NFS on client **
+`$ showmount -e SERVER_IP`
+
+**Mounting the NFS on client**
 
 ```
 $ mount -t nfs SERVER_IP:/nfs-share /mounted-nfs-share	
