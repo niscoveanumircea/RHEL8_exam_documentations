@@ -115,25 +115,68 @@ $ ll /lib/systemd/system/runlevel*.target
     lrwxrwxrwx. 1 root root 16 Feb  4 17:01 /lib/systemd/system/runlevel5.target -> graphical.target
     lrwxrwxrwx. 1 root root 13 Feb  4 17:01 /lib/systemd/system/runlevel6.target -> reboot.target
 ```
-#### YUM Repositories
+#### YUM / DNF
 
 `$ yum-config-manager --add-repo https://dl.fedoraproject.org/pub/epel/8/Everything/x86_64/`
 
-```
-$cat local.repo
-   [repository_name]
-   name = It is like a description
-   baseurl = URL
-   enabled = 1
-   gpgcheck = 1
-   gpgkey = file:///etc/pki/rpm-rpg/repo_key (it can be downloaded from the repo - https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-8)
-```
-* List packages from a repository: `$ dnf|yum repository-packages epel list`.
+##### YUM Appstream
+
+* List modules: 
+
+	`$ yum module list` - shows all versions for each module
+* Enable another version: 
+
+	`$ yum module enable postgresql:12`
+	
+* Reset module version to default [d]: 
+
+	`yum module reset postgresql` 
+	
+* Other yum module arguments : 
+
+	`$ yum module {update,provides,install,reset,disable,enable,info,remove,list} MODULE_NAME`
+   
 * List modules: `$ dnf|yum module list`.
 * Enable/disable module: `$ dnf|yum module enable|disable postgresql:12`.
 * Install/reset module: `$ dnf|yum module reset|install`.
+
+##### YUM Create Local Repository
+
+The ISO image used for installing Linux contains packages.
+
+`/dev/sr01`- device used by DVD ROM
+
+Create a local ISO using the DVD ROM content
+
+`dd if=/dev/sr0 of=/rhel8.iso bs=1M`
+
+Mount the ISO permanently to a mountpoint:
+
+```
+$ cat /etc/fstab
+/rhel8.iso     /repo     iso9660     defaults   0 0
+```
+
+
+`$ cat /etc/yum.repos.d/local.repo`
+
+   [local_repo_name]
+   name = It is like a description
+   baseurl = file:///repo/path/to/dir/with/packages
+   enabled = 1
+   gpgcheck = 1
+   gpgkey = file:///repo/path/to/dir/with/packages/RPM-KEY  ( or stored in /etc/pki/rpm-gpg ) 
+
+
+##### YUM Other Commands
+
+* List packages from a repository: `$ dnf|yum repository-packages epel list`.
+
+`$ yum updateinfo all`
+
 * Install GUI|Graphical Interface:
-   ```
+
+```
    $ yum grouplist
    $ yum groupinstall "Graphical Administration Tools|Server with GUI"
    ```
@@ -145,20 +188,29 @@ $cat local.repo
       $ yum list kernel
       $ yum install kernel
       ```
+      
 OR using RPM
 
    `$ rpm -ivh kernel-3.10.0-327.4.5.el7.x86_64.rpm`
    
 The name of your kernel package may vary. At this point you may realize, upon running the above command, you receive an error relating to failed dependencies. To resolve this, we need to update our `linux-firmware` and `dracut` packages:
 
-   `$ yum install linux-firmware dracut`
+`$ yum install linux-firmware dracut`
 
 With the dependencies resolved, rerun the installation command. If you now **navigate to the /boot directory, you can view the newest kernel installed under vmlinuz-3.10.0327.4.5.el7.x86_64. You can also see the older kernel located alongside it. If vmlinuz-3.10.0-327.4.5.el7.x86_64 is not located in the /boot directory, run dracut to regenerate it for the latest kernel.**
+
+```
+ls -1  /boot/*vmlinuz*
+/boot/vmlinuz-3.10.0-1062.1.2.el7.x86_64
+/boot/vmlinuz-3.10.0-1062.4.3.el7.x86_64
+/boot/vmlinuz-3.10.0-1062.7.1.el7.x86_64
+```
 
 Ensure the new kernel is installed by rebooting the system and once more running the `uname -r` command. It should output the version number of the newly-downloaded kernel.
 
 ```
 $ yum updateinfo all
+
 Last metadata expiration check: 0:11:40 ago on Thu 20 Feb 2020 10:50:49 PM CET.
 Updates Information Summary: all
     3 New Package notice(s)
@@ -184,61 +236,13 @@ lo      loopback  unmanaged  --
 Show connections | configurations:
 ```
 # ls -1 /etc/sysconfig/network-scripts/
+
 ifcfg-ens33
 
 # nmcli connection show
 NAME   UUID                                  TYPE      DEVICE
 ens33  1a883146-2c88-43ea-ab1b-d9c3e23a87d0  ethernet  ens33
 ```
-
-### 3. LDAP configuration
-
-**Packages:** `nss-pam-ldapd` , `pam_krb5` , `autofs` , `nfs-utils` , `openldap-clients` 
-
-
-CLI: `authconfig` or install GUI: `authconfig-gtk`
-
-`$ authconfig --enableldap --enableldapauth --enablemkhomedir --enableldaptls --ldaploadcacert=http://ldap.linuxacademy.com/pub/cert.pem --ldapserver=ldap.linuxacademy.com --ldapbasedn="dc=linuxacademy,dc=com" --update`
-
-```
-$ realmd` - for joining to an AD Domain
-$ realmd discover <AD server>`
-$ realmd join <AD server>`
-$ ssh -l test@ad.linuxacademy.com IP_ADDRESS
-```
-
-##### Auto-Mount a Home Directory
-
-Install the `autofs`, `openldap-clients` and `nfs-utils` packages:
-
-`$ yum install -y autofs nfs-utils openldap-clients`
-
-Create one config  `/etc/auto.master.d/ldap.autofs` file (similar to /etc/auto.master), and add the following line:
-
-`/home/guests /etc/auto.ldap`
-
-Save and exit.
-
-Now create the `/etc/auto.ldap` file, and add the following:
-
-`* -rw ldap.linuxacademy.com:/home/guests/&`
-
-Save and exit.
-
-Additionally, we need to enable the ability to use LDAP credentials through SSH. Open the `/etc/pam.d/sshd` file, and add the following lines to the top of the file:
-
-```
-auth sufficient pam_ldap.so
-auth sufficient pam_permit.so
-```
-
-Start and enable the automounter daemon, then restart SSH:
-
-```
-$ systemctl start autofs && systemctl enable autofs
-$ systemctl restart sshd
-```
-
 
 ### 4. Configure local storage
 
@@ -286,9 +290,13 @@ The files written on the client with any user will appear on the server in the o
 $ yum install nfs-utils
 $ systemctl start rpcbind
 $ systemctl start nfs-server
-
 ```
-/etc/exports: `/nfs-share CLIENT_IP(*,rw,sync, permissions etc)`  + `$ exportfs -a` to export al exports in file
+
+cat /etc/exports: 
+
+`/nfs-share-directory   CLIENT_IP(*,rw,sync, permissions etc)` 
++ 
+`$ exportfs -a`  - to export al exports in file
 
 [client]
 
@@ -299,11 +307,14 @@ $ systemctl start rpcbind.service
 
 Show file system exports on the client: `$ showmount -e SERVER_IP`
 
-**Mounting NFS**
+**Mounting the NFS on client **
 
 ```
 $ mount -t nfs SERVER_IP:/nfs-share /mounted-nfs-share	
-$ vi /etc/fstab : SERVER_IP:/nfs-share /mounted-nfs-share      nfs4    defaults 0 0
+
+$ vi /etc/fstab : 
+
+SERVER_IP:/nfs-share       /mounted-nfs-share      nfs4    defaults 0 0
 ```
 
 ### 6. Manage users and groups
@@ -443,3 +454,79 @@ $ auto -rw,soft,intr NFS_SERVER_IP:/NFS_SHARE_PATH
 +
 $ systemctl restart autofs.service
 ```
+
+### Interrupt boot process and Change the root password:
+
+* Edit the kernel boot parameters by pressing "`e`"
+* Go to the end of "linux" line by pressing `CTR+e` removing `ro crash` and add `rd.break enforcing=o`
+* Start the system by pressing `CTR+x`
+* Remount the root of the system: 
+
+  `$ mount -o remount,rw /sysroot`
+  
+* Swith to /sysroot: `$ chroot /sysroot`
+* Reset the “root” password: `$ passwd`
+* Enable SElinux relabeling: `$ touch /.autorelabel`
+* Exit the SHELL:   ```$ exit```
+
+
+### Special permissions:
+
+* `setuid`  (only to files ) – when running the executable, it runs with the owner permission and not with the actual user that runs the executable
+* `setgid` (files and folders) – if set , the files/folders created under the parent will have the group of the of the parent folder
+* `sticky bit` (folders) – if set , the files under folder can only be deleted by the owner
+
+
+### Configure time service client : chrony
+
+* Install required package: `yum install chrony`
+* Start "chronyd": `systemctl start chronyd && systemctl enable chronyd`
+* Configure "chronyd": `vi /etc/chronyd`
+* Restart "chornyd" to apply configuration: `systemctl restart chronyd`
+
+### Users and Groups
+
+`$ id USER_NAME`
+
+`$ groups USER_NAME` -> show belonging groups
+
+`$ usermod -aG NEW_GROUP_TO_ADD USER_NAME` - add the user to a new group
+
+`$ usermod -g NEW_MAIN_GROUP USER_NAME` - sets the new main group
+
+`$ usermod -L USER_NAME` - lock user
+
+`$ usermod -U USER_NAME` - unlock user
+
+* Change password to user:
+
+`$ passwd USER_NAME` - to change password for user
+
+`$ chage USER_NAME` - to set password expiracy policies
+
+### SElinux 
+
+`$ getenforce` - view selinux mode [0|1] or [Permissive|Enforcing]
+
+`$ setenforce [0|1]` - set selinux mode
+
+`$ setatus` - view SElinux status
+
+* List boolenas: `$ getsebool -a`
+* Turn boolean ON of OFF: `$ setsebool BOOLEAN_NAME on | off -P` - add "-P" for permanent
+* List SElinux contexts: `$ semanage fcontext -l`
+* View contexts on files of folders:
+
+	```
+	$ ls -Z
+	$ ps -axZ
+	```
+	
+* Change SElinux context (semanage or chcon or setfiles):
+
+	`$ semanage fcontext -a -t context_type '/var/www/html(./*)?'` - changes SElinux context recurrent
+	
+* Restore default contexts: `$ restorecon -R /var/www/html`
+
+* View SElinux policy violations:
+	`$ seaalert -a /var/log/audit/audit.log`
