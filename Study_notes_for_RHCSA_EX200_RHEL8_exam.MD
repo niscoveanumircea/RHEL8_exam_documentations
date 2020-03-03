@@ -161,9 +161,9 @@ $ cat /etc/fstab
 
 `$ cat /etc/yum.repos.d/local.repo`
 
+```
 [local_repo_name]
 
-```
 name = It is like a description
 baseurl = file:///repo/path/to/dir/with/packages
 enabled = 1
