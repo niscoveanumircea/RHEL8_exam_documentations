@@ -530,7 +530,96 @@ $ systemctl restart autofs.service
 
 	`$ semanage fcontext -a -t context_type '/var/www/html(./*)?'` - changes SElinux context recurrent
 	
+	or
+	
+	`$ setfiles ...`
+	
+	or
+	
+	`$ chcon ...`
+	
 * Restore default contexts: `$ restorecon -R /var/www/html`
 
 * View SElinux policy violations:
+	
 	`$ seaalert -a /var/log/audit/audit.log`
+
+
+### Adjust process scheduling
+
+ All Linux threads have one of the following scheduling policies:
+
+**SCHED_OTHER** or **SCHED_NORMAL**: The default policy; normal time sharing
+**SCHED_BATCH**: Similar to SCHED_OTHER, but with a throughput orientation
+**SCHED_IDLE**: A lower priority than SCHED_OTHER
+**SCHED_FIFO**: A first in/first out realtime policy
+**SCHED_RR**: A round-robin realtime policy 
+
+`SCHED_OTHER` or `SCHED_NORMAL` is the default scheduling policy for Linux threads. It has a dynamic priority that is changed by the system based on the characteristics of the thread. Another thing that effects the priority of `SCHED_OTHER` threads is their nice value. The nice value is a number between -20 (highest priority) and 19 (lowest priority). By default, `SCHED_OTHER` threads have a nice value of 0. Adjusting the nice value will change the way the thread is handled.
+
+Threads with a `SCHED_FIFO` policy will run ahead of `SCHED_OTHER` tasks. Instead of using nice values, `SCHED_FIFO` uses a fixed priority between 1 (lowest) and 99 (highest). A `SCHED_FIFO` thread with a priority of 1 will always be scheduled ahead of any `SCHED_OTHER` thread.
+
+The `SCHED_RR` policy is very similar to the `SCHED_FIFO` policy. In the SCHED_RR policy, threads of equal priority are scheduled in a round-robin fashion. Generally, `SCHED_FIFO` is preferred over `SCHED_RR`.
+
+`SCHED_FIFO` and `SCHED_RR` threads will run until one of the following events occurs:
+
+*The thread goes to sleep or begins waiting for an event
+A higher-priority realtime thread becomes ready to run*
+
+If one of these events does not occur, the threads will run indefinitely on that processor, and lower-priority threads will not be given a chance to run. This can result in system service threads failing to run, and operations such as memory swapping and filesystem data flushing not occurring as expected. 
+
+
+```
+   PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+ 24529 root      20   0    7324    828    760 R  82.4   0.0   0:01.96 dd
+```
+
+```
+$ chrt -p 24529
+pid 24529's current scheduling policy: SCHED_OTHER
+pid 24529's current scheduling priority: 0
+```
+
+```
+$ chrt -m
+SCHED_OTHER min/max priority    : 0/0
+SCHED_FIFO min/max priority     : 1/99
+SCHED_RR min/max priority       : 1/99
+SCHED_BATCH min/max priority    : 0/0
+SCHED_IDLE min/max priority     : 0/0
+SCHED_DEADLINE min/max priority : 0/0
+
+```
+
+To start a new application with a given policy and priority, specify the name of the application (and the path, if necessary) along with the attributes. 
+The following command will start `/bin/my-app`, with a policy of `SCHED_FIFO` and a priority of `36`:
+
+`$ chrt -f 36 /bin/my-app`
+
+
+### Adjust process priority/nice level
+
+Another important task for the system administrator is managing priorities and niceness. Well, by default Linux processes are started with the same priority. 
+
+**Real-Time (rt)** processes - highest priority and cannot be modified by no one
+**Non Real-Time** processes - can have their priorities changed with `nice / renice` and `chrt` and `top (r)`
+
+When you use nice and renice, you use a nice value, and the nice value ranges from **-20 (highest) to positive 19 (lowest)**
+As a USER, you can only reduce priority of the processes;
+
+nice -n 10(nice value) /bin/bash command etc
+renice -n 10(nice valie) -u|g|p  (user,group,pid)
+
+
+The library calls below are used to set the priority of non-realtime processes.
+
+```
+nice
+getpriority
+setpriority 
+```
+
+These functions retrieve and adjust the nice value of a **non-realtime process**. The nice value serves as a suggestion to the scheduler on how to order the list of ready-to-run non-realtime processes to be run on a processor. 
+The processes at the head of the list run sooner than the ones further back. 
+
+### Manage tuning profiles
