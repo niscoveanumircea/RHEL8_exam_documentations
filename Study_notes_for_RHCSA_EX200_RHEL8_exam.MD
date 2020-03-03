@@ -163,16 +163,13 @@ $ cat /etc/fstab
 
 [local_repo_name]
 
+```
 name = It is like a description
-
 baseurl = file:///repo/path/to/dir/with/packages
-
 enabled = 1
-
 gpgcheck = 1
-
 gpgkey = file:///repo/path/to/dir/with/packages/RPM-KEY  ( or stored in /etc/pki/rpm-gpg )
-
+```
 
 
 ##### YUM Other Commands
