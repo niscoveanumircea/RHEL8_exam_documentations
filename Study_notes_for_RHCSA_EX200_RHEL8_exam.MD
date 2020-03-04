@@ -479,7 +479,7 @@ Need to add some extra flags. Before the actual mount, vdo service and others mu
 
 ```
 $ cat /etc/fstab
-/dev/mapper/NAME  /mount/point   FS_TYPE(xfs,ext etc)    defaults,_netdev,x-systemd.device-timeout=0,x-systemd.requires=vdo.service    0 0  
+/dev/mapper/NAME  /mount/point   FS_TYPE(xfs,ext etc)    x-systemd.requires=vdo.service    0 0  
 ```
 
 
@@ -682,3 +682,45 @@ These functions retrieve and adjust the nice value of a **non-realtime process**
 The processes at the head of the list run sooner than the ones further back. 
 
 ### Manage tuning profiles
+
+
+### Manage layered storage: STRATIS
+
+* Not created on top of partitions
+* Can be created on top of disks or LVM
+* Default filesystem: XFS
+
+#### How To Use STRATIS
+
+```
+$ yum install -y stratis-cli startisd
+$ systemctl enable stratisd
+$ systemctl stratis stratisd
+```
+
+* Create a STRATIS pool and filesystem
+
+```
+$ stratis pool create MYPOOL /dev/sdb
+$ stratis pool  list 	- show pools
+
+$ stratis filesystem create MYPOOL my_fs1 ( creates XFS filesystem )
+$ stratis filesystem list 	- show filesystems
+```
+
+```
+$ mkdir /mount_dir
+$ mount /dev/stratis/MYPOOL/my_fs1 /mount_dir
+```
+
+* Show info
+
+$ stratis fs list
+$ stratis blockdev list MYPOOL 	
+
+* Persistent mount : fstab
+
+```
+$ vi /etc/fstab
+UUID=71c5b986-be31-46b1-bbb9-563641ad4820 /mount_dir 	xfs		defaults 	0 0
+```
