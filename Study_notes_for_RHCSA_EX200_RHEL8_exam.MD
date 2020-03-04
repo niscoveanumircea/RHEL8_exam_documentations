@@ -226,9 +226,60 @@ Updates Information Summary: all
 
 ### 2. Manage basic networking
 
-CLI: `nmcli`
+#### DNS
 
-GUI: `nmtui`
+cat /etc/resolv.conf
+cat /etc/hosts
+
+or to change the resolv order : 
+
+`/etc/nsswitch.conf` + systemclt network restart
+
+
+##### RUNTIME configurations
+
+`$ ip` -> used only for **RUNTIME** configuration ( not persistent )
+
+`$ ip link show` - show status of current NIC
+`$ ip route` - show and manage routes
+`$ ip address show` - manage address assignment
+`$ ip link IF up|down
+`
+##### PERSISTENT configurations
+
+CLI: `nmcli`
+GUI: `nmtui`    
+
+`$ system start/enable NetworkManager`
+
+* Show connections | configurations:
+
+```
+# cat /etc/sysconfig/network-scripts/ifcfg-ens33
+```
+or
+```
+$ nmcli connection show
+NAME   UUID                                  TYPE      DEVICE
+ens33  1a883146-2c88-43ea-ab1b-d9c3e23a87d0  ethernet  ens33
+```
+
+* Creating an ethernet connection profile:
+
+
+`$ nmcli connection add con-name testcont autoconnect no type ethernet ifname ens33` -> the connection 'testcon' is created, but is DOWN
+
+```
+$ nmcli connection  show
+NAME         UUID                                  TYPE      DEVICE
+System eth0  5fb06bd0-0bb0-7ffb-45f1-d6edd65f3e03  ethernet  eth0
+testcont     7e766c87-2230-40b5-b28e-cc4e93a0c33b  ethernet  --
+```
+* To make the connection UP:
+
+`$ nmcli connection up testcon`
+
+
 
 Show devices | interfaces:
 ```
@@ -237,16 +288,15 @@ DEVICE  TYPE      STATE      CONNECTION
 ens33   ethernet  connected  ens33
 lo      loopback  unmanaged  --
 ```
-Show connections | configurations:
-```
-# ls -1 /etc/sysconfig/network-scripts/
 
-ifcfg-ens33
+* If you modify the network config file you need to make sure it is reloaded:
 
-# nmcli connection show
-NAME   UUID                                  TYPE      DEVICE
-ens33  1a883146-2c88-43ea-ab1b-d9c3e23a87d0  ethernet  ens33
-```
+1. `$ nmcli connection up`
+2. `$ systemctl restart NetworkManager.service`
+
+
+
+
 
 ### 4. Configure local storage
 
