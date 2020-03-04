@@ -573,11 +573,17 @@ $ systemctl restart autofs.service
 * List SElinux contexts: `$ semanage fcontext -l`
 * View contexts on files of folders:
 
-	```
+```
 	$ ls -Z
 	$ ps -axZ
-	```
-	
+```
+
+* Persistent Changes: semanage fcontext
+
+The `semanage fcontext` command is used to change the SELinux context of files. To show contexts to newly created files and directories, enter the following command as root:
+
+`$ semanage fcontext -C -l`
+
 * Change SElinux context (semanage or chcon or setfiles):
 
 	`$ semanage fcontext -a -t context_type '/var/www/html(./*)?'` - changes SElinux context recurrent
