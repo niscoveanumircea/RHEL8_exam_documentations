@@ -683,6 +683,17 @@ The processes at the head of the list run sooner than the ones further back.
 
 ### Manage tuning profiles
 
+`tuned` - service that allows performance optimization
+
+```
+$ systemctl enable tuned.service
+$ systemctl start tuned.service
+```
+
+$ tuned-adm list 			- show list of profiles
+$ tuned-adm profie <new-profile> 	- sets new profile
+$ tuned-adm active			- show current profile
+
 
 ### Manage layered storage: STRATIS
 
@@ -724,3 +735,6 @@ $ stratis blockdev list MYPOOL
 $ vi /etc/fstab
 UUID=71c5b986-be31-46b1-bbb9-563641ad4820 /mount_dir 	xfs		defaults 	0 0
 ```
+
+
+
