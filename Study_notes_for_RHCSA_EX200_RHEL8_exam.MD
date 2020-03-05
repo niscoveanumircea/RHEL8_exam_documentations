@@ -737,4 +737,12 @@ UUID=71c5b986-be31-46b1-bbb9-563641ad4820 /mount_dir 	xfs		defaults 	0 0
 ```
 
 
+### SSH
 
+AllowUsers
+AllowGroups 
+
+DenyUsers
+DenyGroups
+
+`$ systemctl restart sshd.service`
