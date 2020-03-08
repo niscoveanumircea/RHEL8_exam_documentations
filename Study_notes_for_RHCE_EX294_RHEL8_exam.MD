@@ -475,15 +475,15 @@ autocmd FileType yaml setlocal ai ts=2 sw=2 et
 ```
 Settings explained:
 ```
-ai   - autoindent (turns it on)
-sw=2 - shiftwidth (indenting is 2 spaces)
-et   - expandtab (do not use actual tab character)
-ts=2 - tabstop (tabs are at proper location)
+set ai   - autoindent (turns it on)
+set sw=2 - shiftwidth (indenting is 2 spaces)
+set et   - expandtab (do not use actual tab character)
+set ts=2 - tabstop (tabs are at proper location)
 ```
 Two other helpful but optional vim settings:
 ```
-nu (show line number)
-cursorline (line to show current cursor position)
+set nu (show line number)
+set cursorline (line to show current cursor position)
 ```
 ## 4. Ansible Vault
 ```
