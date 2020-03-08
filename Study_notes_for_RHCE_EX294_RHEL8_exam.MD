@@ -1125,7 +1125,7 @@ The `hostvars` variable lets you access variables for another host, including fa
 {{ hostvars['ansible2.hl.local']['ansible_default_ipv4']['address'] }}
 {{ hostvars['ansible2.hl.local']['ansible_fqdn'] }}
 ```
-The `inventory_hostname` variable is the name of the hostname as configured in Ansible's inventory host file. The groups variable is a list of all the groups in the inventory.
+The `inventory_hostname` variable is the name of the hostname as configured in Ansible's inventory host file. The `groups` variable is a list of all the groups in the inventory.
 ```
 when: inventory_hostname in groups["webservers"]
 ```
