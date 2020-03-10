@@ -1381,3 +1381,181 @@ Tips for making the most of Ansible and Ansible playbooks.
 3. Always name tasks. It is recommended to provide a description about why something is being done!
 4. Keep it simple. Do not attemtp to use every feature of Ansible together, all at once. Use what works for you!
 5. Ansible best practice has no limit on the amount of variable and vault files or their names.
+
+
+## 26. Useful filters
+
+### URL Filter
+
+{{ "http://user:password@www.acme.com:9000/dir/index.html?query=term#fragment" | urlsplit }}
+
+```
+# =>
+#   {
+#       "fragment": "fragment",
+#       "hostname": "www.acme.com",
+#       "netloc": "user:password@www.acme.com:9000",
+#       "password": "password",
+#       "path": "/dir/index.html",
+#       "port": 9000,
+#       "query": "query=term",
+#       "scheme": "http",
+#       "username": "user"
+#   }
+```
+
+### Regular Expression Filters
+
+To search a string with a regex, use the “regex_search” filter:
+
+```
+# search for "foo" in "foobar"
+{{ 'foobar' | regex_search('(foo)') }}
+```
+```
+# will return empty if it cannot find a match
+{{ 'ansible' | regex_search('(foobar)') }}
+```
+```
+# case insensitive search in multiline mode
+{{ 'foo\nBAR' | regex_search("^bar", multiline=True, ignorecase=True) }}
+```
+
+To search for all occurrences of regex matches, use the “regex_findall” filter:
+```
+# Return a list of all IPv4 addresses in the string
+{{ 'Some DNS servers are 8.8.8.8 and 8.8.4.4' | regex_findall('\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b') }}
+```
+
+To replace text in a string with regex, use the “regex_replace” filter:
+```
+# convert "ansible" to "able"
+{{ 'ansible' | regex_replace('^a.*i(.*)$', 'a\\1') }}
+```
+```
+# convert "foobar" to "bar"
+{{ 'foobar' | regex_replace('^f.*o(.*)$', '\\1') }}
+```
+```
+# convert "localhost:80" to "localhost, 80" using named groups
+{{ 'localhost:80' | regex_replace('^(?P<host>.+):(?P<port>\\d+)$', '\\g<host>, \\g<port>') }}
+```
+```
+# convert "localhost:80" to "localhost"
+{{ 'localhost:80' | regex_replace(':80') }}
+```
+
+### Other Filters
+
+To make use of one attribute from each item in a list of complex variables, use the “map” filter (see the Jinja2 map() docs for more):
+
+\# get a comma-separated list of the mount points (e.g. "/,/mnt/stuff") on a host
+`{{ ansible_mounts | map(attribute='mount') | join(',') }}`
+
+
+### Debugging Filters
+
+Use the type_debug filter to display the underlying Python type of a variable. This can be useful in debugging in situations where you may need to know the exact type of a variable:
+
+`{{ myvar | type_debug }}`
+
+
+### Testing strings
+
+To match strings against a substring or a regular expression, use the “match”, “search” or “regex” filters:
+
+```
+vars:
+  url: "http://example.com/users/foo/resources/bar"
+
+tasks:
+    - debug:
+        msg: "matched pattern 1"
+      when: url is match("http://example.com/users/.*/resources/.*")
+
+    - debug:
+        msg: "matched pattern 2"
+      when: url is search("/users/.*/resources/.*")
+
+    - debug:
+        msg: "matched pattern 3"
+      when: url is search("/users/")
+
+    - debug:
+        msg: "matched pattern 4"
+      when: url is regex("example.com/\w+/foo")
+```
+
+
+### Testing paths
+
+The following tests can provide information about a path on the controller:
+
+```
+- debug:
+    msg: "path is a directory"
+  when: mypath is directory
+
+- debug:
+    msg: "path is a file"
+  when: mypath is file
+
+- debug:
+    msg: "path is a symlink"
+  when: mypath is link
+
+- debug:
+    msg: "path already exists"
+  when: mypath is exists
+
+- debug:
+    msg: "path is {{ (mypath is abs)|ternary('absolute','relative')}}"
+
+- debug:
+    msg: "path is the same file as path2"
+  when: mypath is same_file(path2)
+
+- debug:
+    msg: "path is a mount"
+  when: mypath is mount
+```
+
+### Task results
+
+The following tasks are illustrative of the tests meant to check the status of tasks:
+
+```
+tasks:
+
+  - shell: /usr/bin/foo
+    register: result
+    ignore_errors: True
+
+  - debug:
+      msg: "it failed"
+    when: result is failed
+```
+
+  **\# in most cases you'll want a handler, but if you want to do something right now, this is nice**
+  
+  ```
+  - debug:
+      msg: "it changed"
+    when: result is changed
+
+  - debug:
+      msg: "it succeeded in Ansible >= 2.1"
+    when: result is succeeded
+
+  - debug:
+      msg: "it succeeded"
+    when: result is success
+
+  - debug:
+      msg: "it was skipped"
+    when: result is skipped
+```
+
+
+
+
