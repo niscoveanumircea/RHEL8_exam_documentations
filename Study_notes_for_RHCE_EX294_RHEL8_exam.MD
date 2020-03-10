@@ -1406,7 +1406,7 @@ Tips for making the most of Ansible and Ansible playbooks.
 
 ### Regular Expression Filters
 
-To search a string with a regex, use the “regex_search” filter:
+\# To search a string with a regex, use the “regex_search” filter:
 
 ```
 # search for "foo" in "foobar"
@@ -1421,13 +1421,14 @@ To search a string with a regex, use the “regex_search” filter:
 {{ 'foo\nBAR' | regex_search("^bar", multiline=True, ignorecase=True) }}
 ```
 
-To search for all occurrences of regex matches, use the “regex_findall” filter:
+\# To search for all occurrences of regex matches, use the “regex_findall” filter:
 ```
 # Return a list of all IPv4 addresses in the string
 {{ 'Some DNS servers are 8.8.8.8 and 8.8.4.4' | regex_findall('\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b') }}
 ```
 
-To replace text in a string with regex, use the “regex_replace” filter:
+\# To replace text in a string with regex, use the “regex_replace” filter:
+
 ```
 # convert "ansible" to "able"
 {{ 'ansible' | regex_replace('^a.*i(.*)$', 'a\\1') }}
@@ -1450,6 +1451,7 @@ To replace text in a string with regex, use the “regex_replace” filter:
 To make use of one attribute from each item in a list of complex variables, use the “map” filter (see the Jinja2 map() docs for more):
 
 \# get a comma-separated list of the mount points (e.g. "/,/mnt/stuff") on a host
+
 `{{ ansible_mounts | map(attribute='mount') | join(',') }}`
 
 
@@ -1536,7 +1538,7 @@ tasks:
     when: result is failed
 ```
 
-  **\# in most cases you'll want a handler, but if you want to do something right now, this is nice**
+  \# in most cases you'll want a handler, but if you want to do something right now, this is nice
   
   ```
   - debug:
