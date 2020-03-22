@@ -477,7 +477,7 @@ Settings explained:
 ```
 set ai   - autoindent (turns it on)
 set sw=2 - shiftwidth (indenting is 2 spaces)
-set et   - expandtab (do not use actual tab character)
+set et   - expandtab (do not use actual tab character -> replace tab with "spaces")
 set ts=2 - tabstop (tabs are at proper location)
 ```
 Two other helpful but optional vim settings:
